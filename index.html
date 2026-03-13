@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王者荣耀 BP 模拟器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+
+    <style>
+        /* 🌟 黑金流光背景动画 */
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        body { 
+            margin: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #fef08a; /* 默认字体变为淡金色 */
+            background: linear-gradient(-45deg, #0a0a0a, #1f1800, #000000, #2b2000, #050505);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+
+        /* 🌟 毛玻璃质感面板 */
+        .glass-panel {
+            background: rgba(10, 10, 10, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(234, 179, 8, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+        }
+
+        /* 🌟 渐变鎏金文字 */
+        .text-gold-gradient {
+            background: linear-gradient(to right, #fde047, #eab308, #a16207);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 英雄头像与状态框优化 */
+        .hero-avatar { transition: all 0.3s ease; }
+        .hero-avatar:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(234, 179, 8, 0.5); z-index: 10; border-color: #eab308; }
+        .selected-hero { border: 2px solid #eab308; transform: scale(1.05); box-shadow: 0 0 20px rgba(234, 179, 8, 0.8); }
+        .disabled-hero { filter: grayscale(100%) brightness(40%); pointer-events: none; }
+        
+        /* 黑金风格滚动条 */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.6); border-radius: 8px; margin: 0 4px; border: 1px solid rgba(234,179,8,0.1); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #ca8a04, #713f12); border-radius: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #facc15, #a16207); }
+        
+        .fade-enter-active, .fade-leave-active { transition: opacity 0.5s ease; }
+        .fade-enter-from, .fade-leave-to { opacity: 0; }
+        
+        /* 下拉菜单金边黑底美化 */
+        select.lane-select { 
+            appearance: none; 
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fde047' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); 
+            background-repeat: no-repeat; background-position: right 4px center; background-size: 14px; padding-right: 20px; 
+            background-color: rgba(0,0,0,0.85); border: 1px solid #ca8a04; color: #fde047;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans relative">
+    <div id="app" class="flex flex-col h-screen p-4">
+        
+        <header class="text-center mb-4 relative z-20">
+            <h1 class="text-4xl font-extrabold text-gold-gradient tracking-widest drop-shadow-lg uppercase">
+                王者荣耀 BP 模拟器
+            </h1>
+            <div class="mt-4 text-lg font-bold glass-panel inline-block px-10 py-2.5 rounded-full border border-yellow-600/40 shadow-[0_0_20px_rgba(234,179,8,0.15)]">
+                当前指示：<span :class="currentTeamColor" class="ml-2 tracking-wide">{{ currentPhaseText }}</span>
+            </div>
+            <button @click="showPrefModal = true" class="absolute right-4 top-2 glass-panel hover:bg-black/80 hover:border-yellow-400 px-5 py-2.5 rounded-xl font-bold transition-all text-yellow-500 hover:text-yellow-300 flex items-center gap-2">
+                <span class="text-xl">⚙️</span> 战术偏好设定
+            </button>
+        </header>
+
+        <main class="flex-1 flex gap-5 overflow-hidden z-10 relative">
+            
+            <aside class="w-1/5 flex flex-col gap-4 glass-panel p-4 rounded-2xl flex-shrink-0 relative">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-transparent rounded-t-2xl opacity-50"></div>
+                <h2 class="text-blue-400 text-2xl font-bold text-center border-b border-blue-900/50 pb-2 tracking-widest drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">蓝色方</h2>
+                <div class="flex justify-center gap-1.5 mb-2">
+                    <div v-for="i in 5" :key="'bb'+i" class="w-10 h-10 bg-black/80 border border-blue-900/50 rounded-full overflow-hidden flex items-center justify-center shadow-inner">
+                        <img v-if="blueBans[i-1] && blueBans[i-1].hero_id" :src="blueBans[i-1].avatar_url" class="w-full h-full object-cover filter grayscale opacity-70">
+                        <span v-else-if="blueBans[i-1] === null" class="text-gray-600 font-bold text-xs">空</span>
+                        <span v-else class="text-blue-900 font-bold text-xs">BAN</span>
+                    </div>
+                </div>
+                <div class="flex-1 flex flex-col gap-3">
+                    <div v-for="i in 5" :key="'bp'+i" class="flex-1 bg-black/60 border border-yellow-900/30 rounded-xl overflow-hidden flex items-center justify-center relative shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]">
+                        <template v-if="bluePicks[i-1]">
+                            <select v-model="bluePicks[i-1].lane" class="lane-select absolute top-1.5 left-1.5 z-10 text-[11px] font-bold rounded px-1.5 py-0.5 outline-none cursor-pointer transition-colors">
+                                <option v-for="l in lanes" :value="l">{{ l }}</option>
+                            </select>
+                            <img :src="getSplashUrl(bluePicks[i-1].hero.hero_id)" class="absolute w-full h-full object-cover object-[center_25%] opacity-90">
+                            <div class="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent pt-10 pb-1.5 text-center text-sm font-bold tracking-widest text-yellow-100">{{ bluePicks[i-1].hero.name }}</div>
+                        </template>
+                        <span v-else class="text-yellow-800/50 font-bold tracking-widest uppercase">Pick {{ i }}</span>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="flex-1 flex flex-col min-w-0 glass-panel p-5 rounded-2xl relative overflow-y-auto custom-scrollbar">
+                
+                <template v-if="!isGameOver">
+                    <div class="flex gap-3 justify-center mb-5 flex-wrap border-b border-yellow-900/30 pb-4">
+                        <button v-for="role in roles" :key="role" 
+                                @click="currentRole = role"
+                                :class="['px-5 py-1.5 rounded-full text-sm font-bold transition-all duration-300 border', 
+                                         currentRole === role ? 'bg-yellow-600 text-white border-yellow-400 shadow-[0_0_15px_rgba(202,138,4,0.6)]' : 'bg-black/50 text-yellow-600 border-yellow-900 hover:bg-yellow-900/30 hover:text-yellow-400']">
+                            {{ role }}
+                        </button>
+                    </div>
+
+                    <div v-if="recommendations.length > 0" class="mb-5 bg-black/60 p-4 rounded-xl border border-yellow-600/40 shadow-[0_0_20px_rgba(0,0,0,0.8)] w-full flex flex-col">
+                        <h3 class="text-yellow-400 font-bold text-sm mb-3 flex items-center gap-2 tracking-wide uppercase">
+                            <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
+                            AI 战术最优解 Top 10
+                        </h3>
+                        <div class="flex gap-3.5 overflow-x-auto custom-scrollbar pb-2 pt-1 w-full">
+                            <div v-for="(rec, index) in recommendations" :key="rec.hero_id" 
+                                 @click="selectHeroById(rec.hero_id)"
+                                 class="flex-shrink-0 w-32 bg-gray-900 rounded-xl overflow-hidden border border-yellow-900/50 cursor-pointer hover:border-yellow-400 transition-all hover:-translate-y-1 hover:shadow-[0_5px_15px_rgba(234,179,8,0.3)] relative group">
+                                <div v-if="rec.is_good_at" class="absolute -left-7 top-1 bg-red-600 text-white text-[10px] font-bold px-7 py-0.5 -rotate-45 z-10 shadow-md">绝活</div>
+                                <div class="relative h-16">
+                                    <img :src="getSplashUrl(rec.hero_id)" class="absolute w-full h-full object-cover object-[center_25%] transition-transform duration-500 group-hover:scale-110">
+                                    <div class="absolute top-0 right-0 bg-yellow-600/90 text-[10px] font-bold px-2 py-0.5 rounded-bl-lg text-white backdrop-blur-sm">Top {{ index + 1 }}</div>
+                                </div>
+                                <div class="p-2 text-center bg-black/80">
+                                    <div class="font-bold text-sm truncate text-yellow-100">{{ rec.name }}</div>
+                                    <div class="text-[10px] text-yellow-700 mt-1 font-bold">
+                                        战力评估: <span class="text-yellow-400 text-xs ml-1">{{ rec.scores.final }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                        <div class="grid grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3">
+                            <div v-for="hero in filteredHeroes" :key="hero.hero_id" 
+                                 @click="selectHero(hero)"
+                                 :class="['hero-avatar cursor-pointer rounded-xl overflow-hidden relative border-2 bg-black/40', 
+                                          isHeroSelected(hero) ? 'selected-hero' : 'border-transparent',
+                                          isHeroDisabled(hero) ? 'disabled-hero' : '']">
+                                <img :src="hero.avatar_url" :alt="hero.name" class="w-full object-cover aspect-square">
+                                <div class="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent pt-5 pb-1 text-center text-xs font-bold text-yellow-100 flex justify-center items-center gap-1 tracking-wide">
+                                    <span v-if="goodAtIds.includes(hero.hero_id.toString())" class="text-red-500 text-[10px] drop-shadow-md">🔥</span>
+                                    <span v-if="badAtIds.includes(hero.hero_id.toString())" class="text-blue-500 text-[10px] drop-shadow-md">🧊</span>
+                                    {{ hero.name }}
+                                </div>
+                                <div v-if="isHeroSelected(hero) && currentPhase?.action === 'ban'" class="absolute inset-0 bg-red-900/60 backdrop-blur-[2px] flex items-center justify-center">
+                                    <span class="text-red-300 font-extrabold text-2xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] border-y-2 border-red-500/50 w-full text-center py-1 bg-black/40">BAN</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <template v-else>
+                    <div class="flex flex-col h-full fade-enter-active p-2">
+                        <h2 class="text-3xl font-extrabold text-center text-gold-gradient mb-8 tracking-widest drop-shadow-[0_0_15px_rgba(234,179,8,0.3)] uppercase">
+                            对局推演与深度数据剖析
+                        </h2>
+                        
+                        <div class="flex flex-col gap-4 mb-8 bg-black/40 p-6 rounded-2xl border border-yellow-900/30 shadow-[inset_0_0_30px_rgba(0,0,0,0.5)]">
+                            <h3 class="text-yellow-600 font-bold text-sm text-center mb-4 uppercase tracking-widest border-b border-yellow-900/30 pb-2">路线压制推演模组</h3>
+                            <div v-for="(pair, idx) in matchupPairs" :key="idx" class="flex items-center gap-4">
+                                <div class="flex items-center gap-3 w-1/4 justify-end">
+                                    <span class="text-sm font-bold text-blue-200 truncate" v-if="pair.blue">{{ pair.blue.name }}</span>
+                                    <span class="text-sm text-gray-600 italic" v-else>空缺</span>
+                                    <img v-if="pair.blue" :src="pair.blue.avatar_url" class="w-12 h-12 rounded-full border-[3px] border-blue-600/80 shadow-[0_0_10px_rgba(37,99,235,0.4)] object-cover">
+                                    <div v-else class="w-12 h-12 rounded-full border-[3px] border-gray-800 bg-gray-900"></div>
+                                </div>
+                                
+                                <div class="flex-1 flex h-7 bg-black rounded-full shadow-inner border border-yellow-900/40 relative items-center justify-center overflow-hidden">
+                                    <div class="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-blue-900 to-blue-600 flex items-center justify-start px-4 text-xs font-bold text-blue-100 transition-all duration-1000 ease-out" 
+                                         :style="{ width: pair.blueAdvantage + '%' }">
+                                        {{ pair.blueAdvantage }}%
+                                    </div>
+                                    <div class="absolute z-20 px-4 py-1 bg-black border border-yellow-600 text-yellow-500 text-[11px] rounded-full font-bold shadow-[0_0_10px_rgba(0,0,0,0.8)] tracking-widest">
+                                        {{ pair.lane }}
+                                    </div>
+                                    <div class="absolute right-0 top-0 bottom-0 bg-gradient-to-l from-red-900 to-red-600 flex items-center justify-end px-4 text-xs font-bold text-red-100 transition-all duration-1000 ease-out" 
+                                         :style="{ width: pair.redAdvantage + '%' }">
+                                        {{ pair.redAdvantage }}%
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-3 w-1/4 justify-start">
+                                    <img v-if="pair.red" :src="pair.red.avatar_url" class="w-12 h-12 rounded-full border-[3px] border-red-600/80 shadow-[0_0_10px_rgba(220,38,38,0.4)] object-cover">
+                                    <div v-else class="w-12 h-12 rounded-full border-[3px] border-gray-800 bg-gray-900"></div>
+                                    <span class="text-sm font-bold text-red-200 truncate" v-if="pair.red">{{ pair.red.name }}</span>
+                                    <span class="text-sm text-gray-600 italic" v-else>空缺</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex-1 flex gap-6 w-full relative min-h-[320px]">
+                            <div class="flex-1 flex flex-col items-center bg-black/40 rounded-2xl border border-blue-900/30 p-5 shadow-lg relative group transition-all hover:border-blue-700/50">
+                                <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-600 to-transparent opacity-30"></div>
+                                <div ref="blueRadarRef" class="w-full flex-1 min-h-[220px] z-10"></div>
+                                <div class="mt-2 text-center border-t border-blue-900/50 pt-4 w-full relative z-20">
+                                    <div class="text-blue-500/70 text-xs font-bold tracking-widest mb-1 uppercase">体系综评指数</div>
+                                    <div class="text-blue-400 font-black text-4xl drop-shadow-[0_0_8px_rgba(59,130,246,0.6)]">{{ blueOverallScore }}<span class="text-sm text-blue-800 ml-1">SS</span></div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1 flex flex-col items-center bg-black/40 rounded-2xl border border-red-900/30 p-5 shadow-lg relative group transition-all hover:border-red-700/50">
+                                <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-30"></div>
+                                <div ref="redRadarRef" class="w-full flex-1 min-h-[220px] z-10"></div>
+                                <div class="mt-2 text-center border-t border-red-900/50 pt-4 w-full relative z-20">
+                                    <div class="text-red-500/70 text-xs font-bold tracking-widest mb-1 uppercase">体系综评指数</div>
+                                    <div class="text-red-400 font-black text-4xl drop-shadow-[0_0_8px_rgba(239,68,68,0.6)]">{{ redOverallScore }}<span class="text-sm text-red-800 ml-1">SS</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <div v-if="!isGameOver" class="mt-5 pt-5 border-t border-yellow-900/30 flex justify-between items-center h-24 flex-shrink-0 bg-black/20 rounded-xl px-4">
+                    <div class="flex items-center gap-3">
+                        <template v-if="currentPhase?.action === 'ban'">
+                            <div v-for="h in activeHeroes" :key="h.hero_id" class="w-14 h-14 rounded-xl border-2 border-red-600/80 overflow-hidden shadow-[0_0_15px_rgba(220,38,38,0.4)]">
+                                <img :src="h.avatar_url" class="w-full h-full object-cover">
+                            </div>
+                            <div v-if="activeHeroes.length === 0" class="text-yellow-800/60 font-bold text-sm ml-2 tracking-widest uppercase">Select Target (0/5)</div>
+                        </template>
+                        <template v-else>
+                            <img v-if="activeHeroes.length > 0" :src="activeHeroes[0].avatar_url" class="w-16 h-16 rounded-xl border-2 border-yellow-500 shadow-[0_0_15px_rgba(234,179,8,0.5)]">
+                            <div v-if="activeHeroes.length > 0" class="ml-3">
+                                <h3 class="text-2xl font-black text-yellow-100 flex items-center gap-2 tracking-wide">
+                                    {{ activeHeroes[0].name }}
+                                    <span v-if="goodAtIds.includes(activeHeroes[0].hero_id.toString())" class="text-[10px] bg-red-600/90 text-white px-2 py-0.5 rounded-sm border border-red-400">SIGNATURE</span>
+                                </h3>
+                                <p class="text-xs text-yellow-600 font-bold mt-1 uppercase tracking-widest">{{ activeHeroes[0].roles.join(' · ') }}</p>
+                            </div>
+                        </template>
+                    </div>
+                    
+                    <div class="flex gap-4">
+                        <button @click="lockIn" :disabled="isLockDisabled"
+                                class="px-12 py-3.5 bg-gradient-to-r from-yellow-700 via-yellow-600 to-yellow-800 hover:from-yellow-500 hover:via-yellow-400 hover:to-yellow-600 text-black font-black text-xl rounded-xl shadow-[0_0_20px_rgba(202,138,4,0.4)] disabled:opacity-40 disabled:shadow-none disabled:cursor-not-allowed transform transition-all active:scale-95 whitespace-nowrap border border-yellow-400/50 uppercase tracking-widest">
+                            {{ lockButtonText }}
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="w-1/5 flex flex-col gap-4 glass-panel p-4 rounded-2xl flex-shrink-0 relative">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-transparent rounded-t-2xl opacity-50"></div>
+                <h2 class="text-red-400 text-2xl font-bold text-center border-b border-red-900/50 pb-2 tracking-widest drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">红色方</h2>
+                <div class="flex justify-center gap-1.5 mb-2">
+                    <div v-for="i in 5" :key="'rb'+i" class="w-10 h-10 bg-black/80 border border-red-900/50 rounded-full overflow-hidden flex items-center justify-center shadow-inner">
+                        <img v-if="redBans[i-1] && redBans[i-1].hero_id" :src="redBans[i-1].avatar_url" class="w-full h-full object-cover filter grayscale opacity-70">
+                        <span v-else-if="redBans[i-1] === null" class="text-gray-600 font-bold text-xs">空</span>
+                        <span v-else class="text-red-900 font-bold text-xs">BAN</span>
+                    </div>
+                </div>
+                <div class="flex-1 flex flex-col gap-3">
+                    <div v-for="i in 5" :key="'rp'+i" class="flex-1 bg-black/60 border border-yellow-900/30 rounded-xl overflow-hidden flex items-center justify-center relative shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]">
+                        <template v-if="redPicks[i-1]">
+                            <select v-model="redPicks[i-1].lane" class="lane-select absolute top-1.5 right-1.5 z-10 text-[11px] font-bold rounded px-1.5 py-0.5 outline-none cursor-pointer transition-colors">
+                                <option v-for="l in lanes" :value="l">{{ l }}</option>
+                            </select>
+                            <img :src="getSplashUrl(redPicks[i-1].hero.hero_id)" class="absolute w-full h-full object-cover object-[center_25%] opacity-90">
+                            <div class="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent pt-10 pb-1.5 text-center text-sm font-bold tracking-widest text-yellow-100">{{ redPicks[i-1].hero.name }}</div>
+                        </template>
+                        <span v-else class="text-yellow-800/50 font-bold tracking-widest uppercase">Pick {{ i }}</span>
+                    </div>
+                </div>
+            </aside>
+            
+        </main>
+
+        <div v-if="showPrefModal" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 backdrop-blur-md">
+            <div class="bg-gray-900 rounded-3xl w-full max-w-5xl h-[85vh] flex flex-col border border-yellow-700/50 shadow-[0_0_50px_rgba(202,138,4,0.15)] relative overflow-hidden">
+                <div class="absolute top-0 w-full h-2 bg-gradient-to-r from-yellow-700 via-yellow-400 to-yellow-700"></div>
+                <div class="p-8 border-b border-gray-800 flex justify-between items-center bg-black/40">
+                    <div>
+                        <h2 class="text-3xl font-black text-gold-gradient uppercase tracking-widest">战术英雄池档案</h2>
+                        <p class="text-gray-500 text-sm mt-2 font-bold tracking-wide">配置后，系统将在计算链路中赋予绝活英雄 <span class="text-red-500">最高优先级</span> 权重。</p>
+                    </div>
+                    <button v-if="hasSavedPrefs" @click="showPrefModal = false" class="text-gray-600 hover:text-yellow-500 text-4xl transition-colors">&times;</button>
+                </div>
+                <div class="flex-1 flex flex-col p-8 overflow-hidden bg-black/20">
+                    <div class="flex gap-6 mb-6">
+                        <button @click="prefTab = 'good'" :class="['flex-1 py-4 font-black rounded-xl transition-all text-xl uppercase tracking-widest border', prefTab === 'good' ? 'bg-red-900/40 text-red-400 border-red-500/50 shadow-[0_0_20px_rgba(220,38,38,0.2)]' : 'bg-black/50 text-gray-600 border-gray-800 hover:border-gray-600']">
+                            🔥 绝活印记 ({{ goodAtIds.length }})
+                        </button>
+                        <button @click="prefTab = 'bad'" :class="['flex-1 py-4 font-black rounded-xl transition-all text-xl uppercase tracking-widest border', prefTab === 'bad' ? 'bg-blue-900/40 text-blue-400 border-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.2)]' : 'bg-black/50 text-gray-600 border-gray-800 hover:border-gray-600']">
+                            🧊 封印雷区 ({{ badAtIds.length }})
+                        </button>
+                    </div>
+                    <div class="flex-1 overflow-y-auto custom-scrollbar border border-gray-800/50 p-4 rounded-2xl bg-black/40 shadow-inner">
+                        <div class="grid grid-cols-6 lg:grid-cols-8 gap-4">
+                            <div v-for="hero in heroes" :key="'pref'+hero.hero_id" 
+                                 @click="togglePrefHero(hero.hero_id.toString())"
+                                 :class="['cursor-pointer rounded-xl overflow-hidden relative border-2 transition-all duration-300', 
+                                          goodAtIds.includes(hero.hero_id.toString()) ? 'border-red-500 scale-105 shadow-[0_0_15px_rgba(220,38,38,0.5)] z-10' : 
+                                          badAtIds.includes(hero.hero_id.toString()) ? 'border-blue-800 filter grayscale opacity-40' : 'border-gray-800 opacity-70 hover:opacity-100 hover:border-yellow-600/50']">
+                                <img :src="hero.avatar_url" class="w-full object-cover aspect-square">
+                                <div class="absolute bottom-0 w-full bg-gradient-to-t from-black to-transparent pt-6 pb-1.5 text-center text-xs font-bold text-gray-300 tracking-wide">{{ hero.name }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 border-t border-gray-800 flex justify-end bg-black/60">
+                    <button @click="savePreferences" class="px-12 py-3.5 bg-gradient-to-r from-yellow-700 via-yellow-600 to-yellow-800 hover:from-yellow-500 hover:via-yellow-400 hover:to-yellow-600 text-black font-black text-xl rounded-xl shadow-[0_0_20px_rgba(202,138,4,0.4)] transition-all uppercase tracking-widest border border-yellow-400/50">
+                        更新档案库
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref, computed, onMounted, watch, nextTick } = Vue;
+
+        createApp({
+            setup() {
+                const heroes = ref([]);
+                const roles = ['全部', '战士', '法师', '刺客', '坦克', '射手', '辅助'];
+                const lanes = ['对抗路', '打野', '中路', '发育路', '游走']; 
+                const currentRole = ref('全部');
+
+                const blueBans = ref([]);
+                const redBans = ref([]);
+                const bluePicks = ref([]);
+                const redPicks = ref([]);
+                const activeHeroes = ref([]);
+                const recommendations = ref([]);
+
+                const showPrefModal = ref(false);
+                const hasSavedPrefs = ref(false);
+                const prefTab = ref('good');
+                const goodAtIds = ref([]);
+                const badAtIds = ref([]);
+                
+                const blueRadarRef = ref(null);
+                const redRadarRef = ref(null);
+                const blueOverallScore = ref(0);
+                const redOverallScore = ref(0);
+                let blueChart = null;
+                let redChart = null;
+
+                const bpSequence = [
+                    { action: 'ban', team: 'blue', text: 'BLUE TEAM 盲禁序列 (0~5)' },
+                    { action: 'ban', team: 'red', text: 'RED TEAM 盲禁序列 (0~5)' },
+                    { action: 'pick', team: 'blue', text: 'BLUE TEAM 第 1 手抉择' },
+                    { action: 'pick', team: 'red', text: 'RED TEAM 第 2 手抉择' },
+                    { action: 'pick', team: 'red', text: 'RED TEAM 第 3 手抉择' },
+                    { action: 'pick', team: 'blue', text: 'BLUE TEAM 第 4 手抉择' },
+                    { action: 'pick', team: 'blue', text: 'BLUE TEAM 第 5 手抉择' },
+                    { action: 'pick', team: 'red', text: 'RED TEAM 第 6 手抉择' },
+                    { action: 'pick', team: 'red', text: 'RED TEAM 第 7 手抉择' },
+                    { action: 'pick', team: 'blue', text: 'BLUE TEAM 第 8 手抉择' },
+                    { action: 'pick', team: 'blue', text: 'BLUE TEAM 第 9 手抉择' }, 
+                    { action: 'pick', team: 'red', text: 'RED TEAM 终端反制位 (Counter)' }
+                ];
+                const stepIndex = ref(0); 
+
+                onMounted(async () => {
+                    try {
+                        const response = await fetch('hero_database_full.json'); 
+                        if(response.ok) {
+                            const data = await response.json();
+                            heroes.value = data.heroes;
+                        }
+                    } catch (e) {
+                        console.log("加载数据失败");
+                    }
+
+                    const savedPrefs = localStorage.getItem('bp_simulator_prefs');
+                    if (savedPrefs) {
+                        const parsed = JSON.parse(savedPrefs);
+                        goodAtIds.value = parsed.goodAt || [];
+                        badAtIds.value = parsed.badAt || [];
+                        hasSavedPrefs.value = true;
+                    } else {
+                        showPrefModal.value = true;
+                    }
+                });
+
+                const guessLane = (hero, currentTeamPicks) => {
+                    const takenLanes = currentTeamPicks.map(p => p.lane);
+                    const availableLanes = lanes.filter(l => !takenLanes.includes(l));
+                    
+                    let pref = '游走';
+                    const role = hero.roles[0];
+                    if (role === '战士' || role === '坦克') pref = '对抗路';
+                    if (role === '法师') pref = '中路';
+                    if (role === '刺客') pref = '打野';
+                    if (role === '射手') pref = '发育路';
+                    if (role === '辅助') pref = '游走';
+                    
+                    if (availableLanes.includes(pref)) return pref;
+                    return availableLanes[0] || pref; 
+                };
+
+                const matchupPairs = computed(() => {
+                    if (!isGameOver.value) return [];
+                    return lanes.map(lane => {
+                        const bPick = bluePicks.value.find(p => p.lane === lane);
+                        const rPick = redPicks.value.find(p => p.lane === lane);
+                        
+                        const blueHero = bPick ? bPick.hero : null;
+                        const redHero = rPick ? rPick.hero : null;
+                        
+                        let blueScore = 50, redScore = 50;
+                        if (blueHero && redHero) {
+                            const bMeta = blueHero.meta_data?.win_rate || 0.5;
+                            const rMeta = redHero.meta_data?.win_rate || 0.5;
+                            const bCountersR = blueHero.relationships?.counters?.[redHero.hero_id] || 0;
+                            const rCountersB = redHero.relationships?.counters?.[blueHero.hero_id] || 0;
+                            
+                            const bTotal = bMeta * 100 + bCountersR * 5;
+                            const rTotal = rMeta * 100 + rCountersB * 5;
+                            
+                            const sum = bTotal + rTotal;
+                            blueScore = sum > 0 ? (bTotal / sum) * 100 : 50;
+                            redScore = sum > 0 ? (rTotal / sum) * 100 : 50;
+                        }
+
+                        return {
+                            lane: lane,
+                            blue: blueHero,
+                            red: redHero,
+                            blueAdvantage: blueScore.toFixed(1),
+                            redAdvantage: redScore.toFixed(1)
+                        };
+                    });
+                });
+
+                const initRadarChart = () => {
+                    if (!blueRadarRef.value || !redRadarRef.value) return;
+                    
+                    // 黑金风格 ECharts 颜色预设
+                    const goldColor = '#eab308';
+                    const bgSplitColor = 'rgba(234, 179, 8, 0.15)';
+                    const axisNameColor = '#fde047';
+
+                    blueChart = echarts.init(blueRadarRef.value);
+                    redChart = echarts.init(redRadarRef.value);
+                    
+                    const calcStats = (picks) => {
+                        let stats = { burst: 0, dps: 0, sustain: 0, control: 0, mobility: 0 };
+                        picks.forEach(p => {
+                            if (!p || !p.hero) return;
+                            const r = p.hero.roles[0]; 
+                            if (r === '法师') { stats.burst += 90; stats.dps += 50; stats.sustain += 20; stats.control += 80; stats.mobility += 40; }
+                            else if (r === '射手') { stats.burst += 60; stats.dps += 100; stats.sustain += 15; stats.control += 30; stats.mobility += 50; }
+                            else if (r === '刺客') { stats.burst += 100; stats.dps += 40; stats.sustain += 25; stats.control += 40; stats.mobility += 90; }
+                            else if (r === '坦克') { stats.burst += 30; stats.dps += 30; stats.sustain += 100; stats.control += 90; stats.mobility += 30; }
+                            else if (r === '辅助') { stats.burst += 20; stats.dps += 20; stats.sustain += 60; stats.control += 100; stats.mobility += 60; }
+                            else if (r === '战士') { stats.burst += 70; stats.dps += 70; stats.sustain += 80; stats.control += 60; stats.mobility += 70; }
+                        });
+                        return [
+                            Math.min(100, (stats.burst / 2.5) + 10),
+                            Math.min(100, (stats.dps / 2) + 10),
+                            Math.min(100, (stats.sustain / 2.5) + 10),
+                            Math.min(100, (stats.control / 2.5) + 10),
+                            Math.min(100, (stats.mobility / 2.5) + 10)
+                        ];
+                    };
+
+                    const blueData = calcStats(bluePicks.value);
+                    const redData = calcStats(redPicks.value);
+
+                    const calcOverall = (data) => Math.round(data.reduce((a, b) => a + b, 0) / data.length);
+                    blueOverallScore.value = calcOverall(blueData);
+                    redOverallScore.value = calcOverall(redData);
+
+                    const commonOption = {
+                        tooltip: { backgroundColor: 'rgba(0,0,0,0.8)', borderColor: goldColor, textStyle: { color: '#fff' } },
+                        radar: {
+                            indicator: [
+                                { name: '爆发', max: 100 },
+                                { name: '输出', max: 100 },
+                                { name: '生存', max: 100 },
+                                { name: '控制', max: 100 },
+                                { name: '机动', max: 100 }
+                            ],
+                            radius: '65%',
+                            center: ['50%', '50%'],
+                            splitNumber: 4,
+                            axisName: { color: axisNameColor, fontSize: 13, fontWeight: 'bold', fontFamily: 'sans-serif' },
+                            splitArea: { areaStyle: { color: ['rgba(0, 0, 0, 0)', 'rgba(234, 179, 8, 0.02)', 'rgba(0, 0, 0, 0)', 'rgba(234, 179, 8, 0.05)'] } },
+                            axisLine: { lineStyle: { color: bgSplitColor } },
+                            splitLine: { lineStyle: { color: bgSplitColor, width: 1.5 } }
+                        }
+                    };
+
+                    blueChart.setOption({
+                        ...commonOption,
+                        series: [{
+                            type: 'radar',
+                            data: [{ value: blueData, name: '蓝色方维系属性', itemStyle: { color: '#60a5fa' }, areaStyle: { color: 'rgba(59, 130, 246, 0.3)' }, lineStyle: { width: 2, color: '#3b82f6' } }]
+                        }]
+                    });
+
+                    redChart.setOption({
+                        ...commonOption,
+                        series: [{
+                            type: 'radar',
+                            data: [{ value: redData, name: '红色方维系属性', itemStyle: { color: '#f87171' }, areaStyle: { color: 'rgba(239, 68, 68, 0.3)' }, lineStyle: { width: 2, color: '#ef4444' } }]
+                        }]
+                    });
+                };
+
+                const isGameOver = computed(() => stepIndex.value >= bpSequence.length);
+                watch(isGameOver, (newVal) => {
+                    if (newVal) {
+                        nextTick(() => { setTimeout(() => { initRadarChart(); }, 150); });
+                    }
+                });
+
+                const togglePrefHero = (id) => {
+                    if (prefTab.value === 'good') {
+                        badAtIds.value = badAtIds.value.filter(hid => hid !== id);
+                        if (goodAtIds.value.includes(id)) goodAtIds.value = goodAtIds.value.filter(hid => hid !== id);
+                        else goodAtIds.value.push(id);
+                    } else {
+                        goodAtIds.value = goodAtIds.value.filter(hid => hid !== id);
+                        if (badAtIds.value.includes(id)) badAtIds.value = badAtIds.value.filter(hid => hid !== id);
+                        else badAtIds.value.push(id);
+                    }
+                };
+
+                const savePreferences = () => {
+                    localStorage.setItem('bp_simulator_prefs', JSON.stringify({ goodAt: goodAtIds.value, badAt: badAtIds.value }));
+                    hasSavedPrefs.value = true;
+                    showPrefModal.value = false;
+                    if (stepIndex.value > 1 && !isGameOver.value) fetchRecommendations();
+                };
+
+                const currentPhase = computed(() => bpSequence[stepIndex.value] || null);
+                const currentPhaseText = computed(() => currentPhase.value ? currentPhase.value.text : '分析已完成 (OVER)');
+                const currentTeamColor = computed(() => {
+                    if (!currentPhase.value) return 'text-yellow-500';
+                    return currentPhase.value.team === 'blue' ? 'text-blue-400 drop-shadow-[0_0_5px_rgba(59,130,246,0.8)]' : 'text-red-400 drop-shadow-[0_0_5px_rgba(239,68,68,0.8)]';
+                });
+
+                const filteredHeroes = computed(() => {
+                    if (currentRole.value === '全部') return heroes.value;
+                    return heroes.value.filter(h => h.roles.includes(currentRole.value));
+                });
+
+                const pickedAndBannedIds = computed(() => {
+                    const picked = [...bluePicks.value, ...redPicks.value].map(p => p.hero.hero_id);
+                    const banned = [...blueBans.value, ...redBans.value].filter(h => h !== null).map(h => h.hero_id);
+                    return [...picked, ...banned];
+                });
+
+                const isHeroSelected = (hero) => activeHeroes.value.some(h => h.hero_id === hero.hero_id);
+                const isHeroDisabled = (hero) => pickedAndBannedIds.value.includes(hero.hero_id);
+
+                const selectHero = (hero) => {
+                    if (isHeroDisabled(hero) || isGameOver.value) return;
+                    const phase = currentPhase.value;
+                    if (phase.action === 'ban') {
+                        const idx = activeHeroes.value.findIndex(h => h.hero_id === hero.hero_id);
+                        if (idx > -1) activeHeroes.value.splice(idx, 1);
+                        else if (activeHeroes.value.length < 5) activeHeroes.value.push(hero);
+                    } else if (phase.action === 'pick') {
+                        activeHeroes.value = [hero];
+                    }
+                };
+                
+                const selectHeroById = (heroId) => {
+                    const hero = heroes.value.find(h => h.hero_id.toString() === heroId.toString());
+                    if (hero) selectHero(hero);
+                };
+
+                const lockButtonText = computed(() => {
+                    if (isGameOver.value) return '对局推演中...';
+                    if (currentPhase.value?.action === 'ban') return `LOCK BAN (${activeHeroes.value.length}/5)`;
+                    return 'LOCK PICK';
+                });
+
+                const isLockDisabled = computed(() => {
+                    if (isGameOver.value) return true;
+                    if (currentPhase.value?.action === 'pick' && activeHeroes.value.length === 0) return true;
+                    return false;
+                });
+
+                const fetchRecommendations = async () => {
+                    if (isGameOver.value || currentPhase.value.action !== 'pick') {
+                        recommendations.value = [];
+                        return;
+                    }
+
+                    const isBlueTurn = currentPhase.value.team === 'blue';
+                    const myPicks = isBlueTurn ? bluePicks.value : redPicks.value;
+                    const enemyPicks = isBlueTurn ? redPicks.value : bluePicks.value;
+                    
+                    const myTeamIds = myPicks.map(p => p.hero.hero_id.toString());
+                    const enemyTeamIds = enemyPicks.map(p => p.hero.hero_id.toString());
+                    const bannedIds = [...blueBans.value, ...redBans.value]
+                                        .filter(h => h !== null)
+                                        .map(h => h.hero_id.toString());
+
+                    try {
+                        const res = await fetch('http://127.0.0.1:8000/api/recommend', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                my_team_ids: myTeamIds,
+                                enemy_team_ids: enemyTeamIds,
+                                banned_ids: bannedIds,
+                                good_at_ids: goodAtIds.value,  
+                                bad_at_ids: badAtIds.value     
+                            })
+                        });
+                        const resData = await res.json();
+                        if(resData.status === 'success') {
+                            recommendations.value = resData.data;
+                        }
+                    } catch (err) {
+                        console.error("请求失败", err);
+                    }
+                };
+
+                const lockIn = () => {
+                    if (isLockDisabled.value) return;
+
+                    const phase = currentPhase.value;
+                    if (phase.action === 'ban') {
+                        let finalBans = [...activeHeroes.value];
+                        while(finalBans.length < 5) finalBans.push(null);
+                        if (phase.team === 'blue') blueBans.value.push(...finalBans);
+                        if (phase.team === 'red') redBans.value.push(...finalBans);
+                    } else if (phase.action === 'pick') {
+                        const heroToLock = activeHeroes.value[0];
+                        const teamPicks = phase.team === 'blue' ? bluePicks.value : redPicks.value;
+                        const defaultLane = guessLane(heroToLock, teamPicks);
+                        
+                        if (phase.team === 'blue') bluePicks.value.push({ hero: heroToLock, lane: defaultLane });
+                        if (phase.team === 'red') redPicks.value.push({ hero: heroToLock, lane: defaultLane });
+                    }
+
+                    activeHeroes.value = [];
+                    stepIndex.value++; 
+                    fetchRecommendations();
+                };
+
+                const getSplashUrl = (heroId) => {
+                    return `https://game.gtimg.cn/images/yxzj/img201606/skin/hero-info/${heroId}/${heroId}-bigskin-1.jpg`;
+                };
+
+                return {
+                    heroes, roles, lanes, currentRole, filteredHeroes,
+                    blueBans, redBans, bluePicks, redPicks,
+                    activeHeroes, currentPhaseText, currentTeamColor, isGameOver,
+                    isHeroSelected, selectHero, selectHeroById, isHeroDisabled, 
+                    lockIn, lockButtonText, isLockDisabled, getSplashUrl,
+                    recommendations, matchupPairs, blueRadarRef, redRadarRef, blueOverallScore, redOverallScore,
+                    showPrefModal, hasSavedPrefs, prefTab, goodAtIds, badAtIds, togglePrefHero, savePreferences
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

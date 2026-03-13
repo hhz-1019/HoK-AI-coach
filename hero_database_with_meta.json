@@ -1,0 +1,3410 @@
+{
+  "update_time": "2026-03-13",
+  "version": "最新版本",
+  "heroes": [
+    {
+      "hero_id": 105,
+      "name": "廉颇",
+      "roles": [
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/105/105.jpg",
+      "meta_data": {
+        "win_rate": 0.4835,
+        "ban_rate": 0.0124,
+        "pick_rate": 0.082,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 106,
+      "name": "小乔",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/106/106.jpg",
+      "meta_data": {
+        "win_rate": 0.4817,
+        "ban_rate": 0.0026,
+        "pick_rate": 0.207,
+        "meta_score": 50,
+        "tier": "T1"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 107,
+      "name": "赵云",
+      "roles": [
+        "战士",
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/107/107.jpg",
+      "meta_data": {
+        "win_rate": 0.5226,
+        "ban_rate": 0.005,
+        "pick_rate": 0.136,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 108,
+      "name": "墨子",
+      "roles": [
+        "法师",
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/108/108.jpg",
+      "meta_data": {
+        "win_rate": 0.5126,
+        "ban_rate": 0.3301,
+        "pick_rate": 0.093,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 109,
+      "name": "妲己",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/109/109.jpg",
+      "meta_data": {
+        "win_rate": 0.4857,
+        "ban_rate": 0.0409,
+        "pick_rate": 0.193,
+        "meta_score": 50,
+        "tier": "T1"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 110,
+      "name": "嬴政",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/110/110.jpg",
+      "meta_data": {
+        "win_rate": 0.5141,
+        "ban_rate": 0.0011,
+        "pick_rate": 0.06,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 111,
+      "name": "孙尚香",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/111/111.jpg",
+      "meta_data": {
+        "win_rate": 0.4532,
+        "ban_rate": 0.0015,
+        "pick_rate": 0.077,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 112,
+      "name": "鲁班七号",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/112/112.jpg",
+      "meta_data": {
+        "win_rate": 0.4724,
+        "ban_rate": 0.0009,
+        "pick_rate": 0.087,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 113,
+      "name": "庄周",
+      "roles": [
+        "辅助",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/113/113.jpg",
+      "meta_data": {
+        "win_rate": 0.488,
+        "ban_rate": 0.4781,
+        "pick_rate": 0.049,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 114,
+      "name": "刘禅",
+      "roles": [
+        "辅助",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/114/114.jpg",
+      "meta_data": {
+        "win_rate": 0.4914,
+        "ban_rate": 0.0128,
+        "pick_rate": 0.055,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 115,
+      "name": "高渐离",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/115/115.jpg",
+      "meta_data": {
+        "win_rate": 0.4936,
+        "ban_rate": 0.0003,
+        "pick_rate": 0.017,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 116,
+      "name": "阿轲",
+      "roles": [
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/116/116.jpg",
+      "meta_data": {
+        "win_rate": 0.474,
+        "ban_rate": 0.0099,
+        "pick_rate": 0.051,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 117,
+      "name": "钟无艳",
+      "roles": [
+        "战士",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/117/117.jpg",
+      "meta_data": {
+        "win_rate": 0.4958,
+        "ban_rate": 0.0007,
+        "pick_rate": 0.045,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 118,
+      "name": "孙膑",
+      "roles": [
+        "辅助",
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/118/118.jpg",
+      "meta_data": {
+        "win_rate": 0.4911,
+        "ban_rate": 0.0126,
+        "pick_rate": 0.06,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 119,
+      "name": "扁鹊",
+      "roles": [
+        "法师",
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/119/119.jpg",
+      "meta_data": {
+        "win_rate": 0.5105,
+        "ban_rate": 0.001,
+        "pick_rate": 0.025,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 120,
+      "name": "白起",
+      "roles": [
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/120/120.jpg",
+      "meta_data": {
+        "win_rate": 0.5256,
+        "ban_rate": 0.0033,
+        "pick_rate": 0.065,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 121,
+      "name": "芈月",
+      "roles": [
+        "法师",
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/121/121.jpg",
+      "meta_data": {
+        "win_rate": 0.5207,
+        "ban_rate": 0.0843,
+        "pick_rate": 0.085,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 123,
+      "name": "吕布",
+      "roles": [
+        "战士",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/123/123.jpg",
+      "meta_data": {
+        "win_rate": 0.4684,
+        "ban_rate": 0.0594,
+        "pick_rate": 0.2,
+        "meta_score": 50,
+        "tier": "T1"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 124,
+      "name": "周瑜",
+      "roles": [
+        "法师",
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/124/124.jpg",
+      "meta_data": {
+        "win_rate": 0.4984,
+        "ban_rate": 0.0004,
+        "pick_rate": 0.021,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 126,
+      "name": "夏侯惇",
+      "roles": [
+        "坦克",
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/126/126.jpg",
+      "meta_data": {
+        "win_rate": 0.494,
+        "ban_rate": 0.0092,
+        "pick_rate": 0.096,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 127,
+      "name": "甄姬",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/127/127.jpg",
+      "meta_data": {
+        "win_rate": 0.5084,
+        "ban_rate": 0.0808,
+        "pick_rate": 0.256,
+        "meta_score": 50,
+        "tier": "T0"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 128,
+      "name": "曹操",
+      "roles": [
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/128/128.jpg",
+      "meta_data": {
+        "win_rate": 0.5155,
+        "ban_rate": 0.0021,
+        "pick_rate": 0.049,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 129,
+      "name": "典韦",
+      "roles": [
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/129/129.jpg",
+      "meta_data": {
+        "win_rate": 0.4709,
+        "ban_rate": 0.0033,
+        "pick_rate": 0.046,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 130,
+      "name": "宫本武藏",
+      "roles": [
+        "战士",
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/130/130.jpg",
+      "meta_data": {
+        "win_rate": 0.4928,
+        "ban_rate": 0.3634,
+        "pick_rate": 0.128,
+        "meta_score": 50,
+        "tier": "T1"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 131,
+      "name": "李白",
+      "roles": [
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/131/131.jpg",
+      "meta_data": {
+        "win_rate": 0.4788,
+        "ban_rate": 0.0067,
+        "pick_rate": 0.067,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 132,
+      "name": "马可波罗",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/132/132.jpg",
+      "meta_data": {
+        "win_rate": 0.4743,
+        "ban_rate": 0.017,
+        "pick_rate": 0.147,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 133,
+      "name": "狄仁杰",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/133/133.jpg",
+      "meta_data": {
+        "win_rate": 0.5114,
+        "ban_rate": 0.0267,
+        "pick_rate": 0.233,
+        "meta_score": 50,
+        "tier": "T0"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 134,
+      "name": "达摩",
+      "roles": [
+        "战士",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/134/134.jpg",
+      "meta_data": {
+        "win_rate": 0.5006,
+        "ban_rate": 0.0003,
+        "pick_rate": 0.029,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 135,
+      "name": "项羽",
+      "roles": [
+        "坦克",
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/135/135.jpg",
+      "meta_data": {
+        "win_rate": 0.4919,
+        "ban_rate": 0.0355,
+        "pick_rate": 0.182,
+        "meta_score": 50,
+        "tier": "T1"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 136,
+      "name": "武则天",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/136/136.jpg",
+      "meta_data": {
+        "win_rate": 0.5189,
+        "ban_rate": 0.0039,
+        "pick_rate": 0.077,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 139,
+      "name": "老夫子",
+      "roles": [
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/139/139.jpg",
+      "meta_data": {
+        "win_rate": 0.5046,
+        "ban_rate": 0.0023,
+        "pick_rate": 0.048,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 140,
+      "name": "关羽",
+      "roles": [
+        "战士",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/140/140.jpg",
+      "meta_data": {
+        "win_rate": 0.5151,
+        "ban_rate": 0.0421,
+        "pick_rate": 0.088,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 141,
+      "name": "貂蝉",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/141/141.jpg",
+      "meta_data": {
+        "win_rate": 0.5129,
+        "ban_rate": 0.035,
+        "pick_rate": 0.099,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 142,
+      "name": "安琪拉",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/142/142.jpg",
+      "meta_data": {
+        "win_rate": 0.4835,
+        "ban_rate": 0.0116,
+        "pick_rate": 0.151,
+        "meta_score": 50,
+        "tier": "T1"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 144,
+      "name": "程咬金",
+      "roles": [
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/144/144.jpg",
+      "meta_data": {
+        "win_rate": 0.4854,
+        "ban_rate": 0.0026,
+        "pick_rate": 0.052,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 146,
+      "name": "露娜",
+      "roles": [
+        "刺客",
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/146/146.jpg",
+      "meta_data": {
+        "win_rate": 0.4545,
+        "ban_rate": 0.0016,
+        "pick_rate": 0.018,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 148,
+      "name": "姜子牙",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/148/148.jpg",
+      "meta_data": {
+        "win_rate": 0.4975,
+        "ban_rate": 0.039,
+        "pick_rate": 0.108,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 149,
+      "name": "刘邦",
+      "roles": [
+        "坦克",
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/149/149.jpg",
+      "meta_data": {
+        "win_rate": 0.5085,
+        "ban_rate": 0.0076,
+        "pick_rate": 0.04,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 150,
+      "name": "韩信",
+      "roles": [
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/150/150.jpg",
+      "meta_data": {
+        "win_rate": 0.5089,
+        "ban_rate": 0.0318,
+        "pick_rate": 0.127,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 152,
+      "name": "王昭君",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/152/152.jpg",
+      "meta_data": {
+        "win_rate": 0.4911,
+        "ban_rate": 0.1164,
+        "pick_rate": 0.163,
+        "meta_score": 50,
+        "tier": "T1"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 153,
+      "name": "兰陵王",
+      "roles": [
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/153/153.jpg",
+      "meta_data": {
+        "win_rate": 0.4656,
+        "ban_rate": 0.0292,
+        "pick_rate": 0.04,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 154,
+      "name": "花木兰",
+      "roles": [
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/154/154.jpg",
+      "meta_data": {
+        "win_rate": 0.4851,
+        "ban_rate": 0.0006,
+        "pick_rate": 0.047,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 156,
+      "name": "张良",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/156/156.jpg",
+      "meta_data": {
+        "win_rate": 0.5115,
+        "ban_rate": 0.3975,
+        "pick_rate": 0.082,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 157,
+      "name": "不知火舞",
+      "roles": [
+        "刺客",
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/157/157.jpg",
+      "meta_data": {
+        "win_rate": 0.464,
+        "ban_rate": 0.0017,
+        "pick_rate": 0.031,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 162,
+      "name": "娜可露露",
+      "roles": [
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/162/162.jpg",
+      "meta_data": {
+        "win_rate": 0.493,
+        "ban_rate": 0.0005,
+        "pick_rate": 0.036,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 163,
+      "name": "橘右京",
+      "roles": [
+        "刺客",
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/163/163.jpg",
+      "meta_data": {
+        "win_rate": 0.5152,
+        "ban_rate": 0.0006,
+        "pick_rate": 0.044,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 166,
+      "name": "亚瑟",
+      "roles": [
+        "战士",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg",
+      "meta_data": {
+        "win_rate": 0.4827,
+        "ban_rate": 0.0018,
+        "pick_rate": 0.077,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 167,
+      "name": "孙悟空",
+      "roles": [
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/167/167.jpg",
+      "meta_data": {
+        "win_rate": 0.4802,
+        "ban_rate": 0.0098,
+        "pick_rate": 0.13,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 168,
+      "name": "牛魔",
+      "roles": [
+        "辅助",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/168/168.jpg",
+      "meta_data": {
+        "win_rate": 0.492,
+        "ban_rate": 0.0014,
+        "pick_rate": 0.037,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 169,
+      "name": "后羿",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/169/169.jpg",
+      "meta_data": {
+        "win_rate": 0.5139,
+        "ban_rate": 0.0036,
+        "pick_rate": 0.199,
+        "meta_score": 50,
+        "tier": "T1"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 170,
+      "name": "刘备",
+      "roles": [
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/170/170.jpg",
+      "meta_data": {
+        "win_rate": 0.5417,
+        "ban_rate": 0.0031,
+        "pick_rate": 0.025,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 171,
+      "name": "张飞",
+      "roles": [
+        "坦克",
+        "辅助"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/171/171.jpg",
+      "meta_data": {
+        "win_rate": 0.4901,
+        "ban_rate": 0.0329,
+        "pick_rate": 0.088,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 173,
+      "name": "李元芳",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/173/173.jpg",
+      "meta_data": {
+        "win_rate": 0.5161,
+        "ban_rate": 0.0164,
+        "pick_rate": 0.145,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 174,
+      "name": "虞姬",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/174/174.jpg",
+      "meta_data": {
+        "win_rate": 0.5036,
+        "ban_rate": 0.0785,
+        "pick_rate": 0.21,
+        "meta_score": 50,
+        "tier": "T0"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 175,
+      "name": "钟馗",
+      "roles": [
+        "辅助",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/175/175.jpg",
+      "meta_data": {
+        "win_rate": 0.4842,
+        "ban_rate": 0.153,
+        "pick_rate": 0.064,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 178,
+      "name": "杨戬",
+      "roles": [
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/178/178.jpg",
+      "meta_data": {
+        "win_rate": 0.5125,
+        "ban_rate": 0.0056,
+        "pick_rate": 0.055,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 183,
+      "name": "雅典娜",
+      "roles": [
+        "战士",
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/183/183.jpg",
+      "meta_data": {
+        "win_rate": 0.5779,
+        "ban_rate": 0.0004,
+        "pick_rate": 0.017,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 184,
+      "name": "蔡文姬",
+      "roles": [
+        "辅助",
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/184/184.jpg",
+      "meta_data": {
+        "win_rate": 0.5115,
+        "ban_rate": 0.2443,
+        "pick_rate": 0.167,
+        "meta_score": 50,
+        "tier": "T0"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 186,
+      "name": "太乙真人",
+      "roles": [
+        "辅助",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/186/186.jpg",
+      "meta_data": {
+        "win_rate": 0.4957,
+        "ban_rate": 0.0081,
+        "pick_rate": 0.013,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 180,
+      "name": "哪吒",
+      "roles": [
+        "战士",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/180/180.jpg",
+      "meta_data": {
+        "win_rate": 0.5235,
+        "ban_rate": 0.0705,
+        "pick_rate": 0.109,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 190,
+      "name": "诸葛亮",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/190/190.jpg",
+      "meta_data": {
+        "win_rate": 0.4833,
+        "ban_rate": 0.0146,
+        "pick_rate": 0.111,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 192,
+      "name": "黄忠",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/192/192.jpg",
+      "meta_data": {
+        "win_rate": 0.5164,
+        "ban_rate": 0.001,
+        "pick_rate": 0.058,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 191,
+      "name": "大乔",
+      "roles": [
+        "辅助",
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/191/191.jpg",
+      "meta_data": {
+        "win_rate": 0.5056,
+        "ban_rate": 0.5622,
+        "pick_rate": 0.109,
+        "meta_score": 50,
+        "tier": "T0"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 187,
+      "name": "东皇太一",
+      "roles": [
+        "辅助",
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/187/187.jpg",
+      "meta_data": {
+        "win_rate": 0.4996,
+        "ban_rate": 0.2349,
+        "pick_rate": 0.075,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 182,
+      "name": "干将莫邪",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/182/182.jpg",
+      "meta_data": {
+        "win_rate": 0.5056,
+        "ban_rate": 0.0113,
+        "pick_rate": 0.072,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 189,
+      "name": "鬼谷子",
+      "roles": [
+        "辅助",
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/189/189.jpg",
+      "meta_data": {
+        "win_rate": 0.5181,
+        "ban_rate": 0.0521,
+        "pick_rate": 0.019,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 193,
+      "name": "铠",
+      "roles": [
+        "战士",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/193/193.jpg",
+      "meta_data": {
+        "win_rate": 0.506,
+        "ban_rate": 0.0496,
+        "pick_rate": 0.112,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 196,
+      "name": "百里守约",
+      "roles": [
+        "射手",
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/196/196.jpg",
+      "meta_data": {
+        "win_rate": 0.4752,
+        "ban_rate": 0.0054,
+        "pick_rate": 0.037,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 195,
+      "name": "百里玄策",
+      "roles": [
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/195/195.jpg",
+      "meta_data": {
+        "win_rate": 0.501,
+        "ban_rate": 0.006,
+        "pick_rate": 0.063,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 194,
+      "name": "苏烈",
+      "roles": [
+        "辅助",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/194/194.jpg",
+      "meta_data": {
+        "win_rate": 0.504,
+        "ban_rate": 0.0248,
+        "pick_rate": 0.038,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 198,
+      "name": "梦奇",
+      "roles": [
+        "坦克",
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/198/198.jpg",
+      "meta_data": {
+        "win_rate": 0.5246,
+        "ban_rate": 0.0005,
+        "pick_rate": 0.013,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 179,
+      "name": "女娲",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/179/179.jpg",
+      "meta_data": {
+        "win_rate": 0.5159,
+        "ban_rate": 0.1051,
+        "pick_rate": 0.082,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 501,
+      "name": "明世隐",
+      "roles": [
+        "辅助"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/501/501.jpg",
+      "meta_data": {
+        "win_rate": 0.476,
+        "ban_rate": 0.0074,
+        "pick_rate": 0.05,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 199,
+      "name": "公孙离",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/199/199.jpg",
+      "meta_data": {
+        "win_rate": 0.4745,
+        "ban_rate": 0.0377,
+        "pick_rate": 0.089,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 176,
+      "name": "杨玉环",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/176/176.jpg",
+      "meta_data": {
+        "win_rate": 0.4919,
+        "ban_rate": 0.0025,
+        "pick_rate": 0.046,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 502,
+      "name": "裴擒虎",
+      "roles": [
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/502/502.jpg",
+      "meta_data": {
+        "win_rate": 0.5104,
+        "ban_rate": 0.0089,
+        "pick_rate": 0.038,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 197,
+      "name": "弈星",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/197/197.jpg",
+      "meta_data": {
+        "win_rate": 0.495,
+        "ban_rate": 0.0071,
+        "pick_rate": 0.047,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 503,
+      "name": "狂铁",
+      "roles": [
+        "战士",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/503/503.jpg",
+      "meta_data": {
+        "win_rate": 0.4908,
+        "ban_rate": 0.0038,
+        "pick_rate": 0.048,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 504,
+      "name": "米莱狄",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/504/504.jpg",
+      "meta_data": {
+        "win_rate": 0.4696,
+        "ban_rate": 0.0995,
+        "pick_rate": 0.056,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 125,
+      "name": "元歌",
+      "roles": [
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/125/125.jpg",
+      "meta_data": {
+        "win_rate": 0.5365,
+        "ban_rate": 0.0137,
+        "pick_rate": 0.051,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 510,
+      "name": "孙策",
+      "roles": [
+        "坦克",
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/510/510.jpg",
+      "meta_data": {
+        "win_rate": 0.4824,
+        "ban_rate": 0.0012,
+        "pick_rate": 0.061,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 137,
+      "name": "司马懿",
+      "roles": [
+        "刺客",
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/137/137.jpg",
+      "meta_data": {
+        "win_rate": 0.52,
+        "ban_rate": 0.0138,
+        "pick_rate": 0.045,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 509,
+      "name": "盾山",
+      "roles": [
+        "辅助",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/509/509.jpg",
+      "meta_data": {
+        "win_rate": 0.5379,
+        "ban_rate": 0.5596,
+        "pick_rate": 0.031,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 508,
+      "name": "伽罗",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/508/508.jpg",
+      "meta_data": {
+        "win_rate": 0.5138,
+        "ban_rate": 0.0039,
+        "pick_rate": 0.076,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 312,
+      "name": "沈梦溪",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/312/312.jpg",
+      "meta_data": {
+        "win_rate": 0.5142,
+        "ban_rate": 0.0577,
+        "pick_rate": 0.053,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 507,
+      "name": "李信",
+      "roles": [
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg",
+      "meta_data": {
+        "win_rate": 0.484,
+        "ban_rate": 0.1417,
+        "pick_rate": 0.152,
+        "meta_score": 50,
+        "tier": "T1"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 513,
+      "name": "上官婉儿",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/513/513.jpg",
+      "meta_data": {
+        "win_rate": 0.5265,
+        "ban_rate": 0.0049,
+        "pick_rate": 0.028,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 515,
+      "name": "嫦娥",
+      "roles": [
+        "法师",
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/515/515.jpg",
+      "meta_data": {
+        "win_rate": 0.5106,
+        "ban_rate": 0.0131,
+        "pick_rate": 0.042,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 511,
+      "name": "猪八戒",
+      "roles": [
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/511/511.jpg",
+      "meta_data": {
+        "win_rate": 0.4881,
+        "ban_rate": 0.0012,
+        "pick_rate": 0.034,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 529,
+      "name": "盘古",
+      "roles": [
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/529/529.jpg",
+      "meta_data": {
+        "win_rate": 0.4835,
+        "ban_rate": 0.0278,
+        "pick_rate": 0.036,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 505,
+      "name": "瑶",
+      "roles": [
+        "辅助",
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/505/505.jpg",
+      "meta_data": {
+        "win_rate": 0.5015,
+        "ban_rate": 0.5972,
+        "pick_rate": 0.218,
+        "meta_score": 50,
+        "tier": "T0"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 506,
+      "name": "云中君",
+      "roles": [
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/506/506.jpg",
+      "meta_data": {
+        "win_rate": 0.5314,
+        "ban_rate": 0.0005,
+        "pick_rate": 0.02,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 522,
+      "name": "曜",
+      "roles": [
+        "战士",
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/522/522.jpg",
+      "meta_data": {
+        "win_rate": 0.4912,
+        "ban_rate": 0.001,
+        "pick_rate": 0.042,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 518,
+      "name": "马超",
+      "roles": [
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/518/518.jpg",
+      "meta_data": {
+        "win_rate": 0.502,
+        "ban_rate": 0.0206,
+        "pick_rate": 0.081,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 523,
+      "name": "西施",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/523/523.jpg",
+      "meta_data": {
+        "win_rate": 0.5147,
+        "ban_rate": 0.178,
+        "pick_rate": 0.077,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 525,
+      "name": "鲁班大师",
+      "roles": [
+        "辅助",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/525/525.jpg",
+      "meta_data": {
+        "win_rate": 0.5022,
+        "ban_rate": 0.006,
+        "pick_rate": 0.012,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 524,
+      "name": "蒙犽",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/524/524.jpg",
+      "meta_data": {
+        "win_rate": 0.4971,
+        "ban_rate": 0.0006,
+        "pick_rate": 0.013,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 531,
+      "name": "镜",
+      "roles": [
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/531/531.jpg",
+      "meta_data": {
+        "win_rate": 0.4899,
+        "ban_rate": 0.0379,
+        "pick_rate": 0.032,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 527,
+      "name": "蒙恬",
+      "roles": [
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/527/527.jpg",
+      "meta_data": {
+        "win_rate": 0.4812,
+        "ban_rate": 0.005,
+        "pick_rate": 0.018,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 533,
+      "name": "阿古朵",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/533/533.jpg",
+      "meta_data": {
+        "win_rate": 0.5363,
+        "ban_rate": 0.0126,
+        "pick_rate": 0.063,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 536,
+      "name": "夏洛特",
+      "roles": [
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/536/536.jpg",
+      "meta_data": {
+        "win_rate": 0.4862,
+        "ban_rate": 0.001,
+        "pick_rate": 0.036,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 528,
+      "name": "澜",
+      "roles": [
+        "刺客",
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/528/528.jpg",
+      "meta_data": {
+        "win_rate": 0.484,
+        "ban_rate": 0.0244,
+        "pick_rate": 0.061,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 537,
+      "name": "司空震",
+      "roles": [
+        "战士",
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/537/537.jpg",
+      "meta_data": {
+        "win_rate": 0.4942,
+        "ban_rate": 0.0047,
+        "pick_rate": 0.058,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 155,
+      "name": "艾琳",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/155/155.jpg",
+      "meta_data": {
+        "win_rate": 0.4991,
+        "ban_rate": 0.0128,
+        "pick_rate": 0.113,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 538,
+      "name": "云缨",
+      "roles": [
+        "战士",
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/538/538.jpg",
+      "meta_data": {
+        "win_rate": 0.5356,
+        "ban_rate": 0.4728,
+        "pick_rate": 0.169,
+        "meta_score": 50,
+        "tier": "T0"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 540,
+      "name": "金蝉",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/540/540.jpg",
+      "meta_data": {
+        "win_rate": 0.4766,
+        "ban_rate": 0.1807,
+        "pick_rate": 0.069,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 542,
+      "name": "暃",
+      "roles": [
+        "刺客"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/542/542.jpg",
+      "meta_data": {
+        "win_rate": 0.5068,
+        "ban_rate": 0.0082,
+        "pick_rate": 0.043,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 534,
+      "name": "桑启",
+      "roles": [
+        "辅助",
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/534/534.jpg",
+      "meta_data": {
+        "win_rate": 0.5208,
+        "ban_rate": 0.0211,
+        "pick_rate": 0.119,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 548,
+      "name": "戈娅",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/548/548.jpg",
+      "meta_data": {
+        "win_rate": 0.5166,
+        "ban_rate": 0.0011,
+        "pick_rate": 0.024,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 521,
+      "name": "海月",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/521/521.jpg",
+      "meta_data": {
+        "win_rate": 0.497,
+        "ban_rate": 0.1165,
+        "pick_rate": 0.048,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 544,
+      "name": "赵怀真",
+      "roles": [
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/544/544.jpg",
+      "meta_data": {
+        "win_rate": 0.5025,
+        "ban_rate": 0.0023,
+        "pick_rate": 0.022,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 545,
+      "name": "莱西奥",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/545/545.jpg",
+      "meta_data": {
+        "win_rate": 0.516,
+        "ban_rate": 0.0006,
+        "pick_rate": 0.056,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 564,
+      "name": "姬小满",
+      "roles": [
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/564/564.jpg",
+      "meta_data": {
+        "win_rate": 0.4919,
+        "ban_rate": 0.0006,
+        "pick_rate": 0.018,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 514,
+      "name": "亚连",
+      "roles": [
+        "战士",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/514/514.jpg",
+      "meta_data": {
+        "win_rate": 0.5088,
+        "ban_rate": 0.0022,
+        "pick_rate": 0.022,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 159,
+      "name": "朵莉亚",
+      "roles": [
+        "辅助",
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/159/159.jpg",
+      "meta_data": {
+        "win_rate": 0.4781,
+        "ban_rate": 0.4825,
+        "pick_rate": 0.26,
+        "meta_score": 50,
+        "tier": "T0"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 563,
+      "name": "海诺",
+      "roles": [
+        "战士",
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/563/563.jpg",
+      "meta_data": {
+        "win_rate": 0.4784,
+        "ban_rate": 0.0596,
+        "pick_rate": 0.07,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 519,
+      "name": "敖隐",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/519/519.jpg",
+      "meta_data": {
+        "win_rate": 0.5035,
+        "ban_rate": 0.1671,
+        "pick_rate": 0.139,
+        "meta_score": 50,
+        "tier": "T1"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 517,
+      "name": "大司命",
+      "roles": [
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/517/517.jpg",
+      "meta_data": {
+        "win_rate": 0.4652,
+        "ban_rate": 0.0127,
+        "pick_rate": 0.06,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 582,
+      "name": "元流之子(法师)",
+      "roles": [
+        "法师"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/582/582.jpg",
+      "meta_data": {
+        "win_rate": 0.5466,
+        "ban_rate": 0.0037,
+        "pick_rate": 0.04,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 581,
+      "name": "元流之子(坦克)",
+      "roles": [
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/581/581.jpg",
+      "meta_data": {
+        "win_rate": 0.4762,
+        "ban_rate": 0.0167,
+        "pick_rate": 0.069,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 577,
+      "name": "少司缘",
+      "roles": [
+        "辅助"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/577/577.jpg",
+      "meta_data": {
+        "win_rate": 0.5044,
+        "ban_rate": 0.5606,
+        "pick_rate": 0.115,
+        "meta_score": 50,
+        "tier": "T0"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 558,
+      "name": "影",
+      "roles": [
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/558/558.jpg",
+      "meta_data": {
+        "win_rate": 0.5201,
+        "ban_rate": 0.0017,
+        "pick_rate": 0.034,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 177,
+      "name": "苍",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/177/177.jpg",
+      "meta_data": {
+        "win_rate": 0.4928,
+        "ban_rate": 0.0005,
+        "pick_rate": 0.017,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 550,
+      "name": "空空儿",
+      "roles": [
+        "辅助"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/550/550.jpg",
+      "meta_data": {
+        "win_rate": 0.4686,
+        "ban_rate": 0.0815,
+        "pick_rate": 0.008,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 584,
+      "name": "元流之子(射手)",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/584/584.jpg",
+      "meta_data": {
+        "win_rate": 0.5093,
+        "ban_rate": 0.0162,
+        "pick_rate": 0.09,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 151,
+      "name": "孙权",
+      "roles": [
+        "射手"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/151/151.jpg",
+      "meta_data": {
+        "win_rate": 0.5196,
+        "ban_rate": 0.1707,
+        "pick_rate": 0.201,
+        "meta_score": 50,
+        "tier": "T0"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 172,
+      "name": "蚩奼",
+      "roles": [
+        "战士"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/172/172.jpg",
+      "meta_data": {
+        "win_rate": 0.5103,
+        "ban_rate": 0.1501,
+        "pick_rate": 0.127,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 585,
+      "name": "元流之子(辅助)",
+      "roles": [
+        "辅助"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/585/585.jpg",
+      "meta_data": {
+        "win_rate": 0.5295,
+        "ban_rate": 0.1567,
+        "pick_rate": 0.049,
+        "meta_score": 50,
+        "tier": "T3"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    },
+    {
+      "hero_id": 188,
+      "name": "大禹",
+      "roles": [
+        "辅助",
+        "坦克"
+      ],
+      "avatar_url": "https://game.gtimg.cn/images/yxzj/img201606/heroimg/188/188.jpg",
+      "meta_data": {
+        "win_rate": 0.558,
+        "ban_rate": 0.1301,
+        "pick_rate": 0.091,
+        "meta_score": 50,
+        "tier": "T2"
+      },
+      "attributes": {
+        "survivability": 5,
+        "damage": 5,
+        "utility": 5,
+        "difficulty": 5
+      },
+      "relationships": {
+        "counters": {},
+        "countered_by": {},
+        "synergies": {}
+      }
+    }
+  ]
+}

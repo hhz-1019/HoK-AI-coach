@@ -1,0 +1,314 @@
+{
+  "returnCode": 0,
+  "returnMsg": "",
+  "result": 0,
+  "data": {
+    "kzInfo": {
+      "heroId": 159,
+      "updateTime": "20260311",
+      "list": [
+        {
+          "kzHeroId": 550,
+          "kzParam": 0.054,
+          "szTitle": "空空儿",
+          "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/e68e7a0ea447ceb3c27c63491c163189.jpg",
+          "szHeroType": "辅助/战士",
+          "tRank": "T4"
+        },
+        {
+          "kzHeroId": 113,
+          "kzParam": 0.0351,
+          "szTitle": "庄周",
+          "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/4bf8d8b708301b53b1a947fde8737624.jpg",
+          "szHeroType": "辅助/坦克",
+          "tRank": "T1"
+        },
+        {
+          "kzHeroId": 176,
+          "kzParam": 0.0294,
+          "szTitle": "杨玉环",
+          "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/f74c9511de7e0f170fea3e3d9175d4d5.jpg",
+          "szHeroType": "法师",
+          "tRank": "T4"
+        }
+      ]
+    },
+    "bkzInfo": {
+      "heroId": 159,
+      "updateTime": "20260311",
+      "list": [
+        {
+          "bkzHeroId": 563,
+          "bkzParam": 0.0191,
+          "szTitle": "海诺",
+          "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/96ae69e4963dc14883539efcf263295b.jpg",
+          "szHeroType": "法师/战士",
+          "tRank": "T2"
+        },
+        {
+          "bkzHeroId": 124,
+          "bkzParam": 0.0171,
+          "szTitle": "周瑜",
+          "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/bf59c98b55d51da6cc7d6cb29d7d9a8b.jpg",
+          "szHeroType": "法师/战士",
+          "tRank": "T3"
+        },
+        {
+          "bkzHeroId": 151,
+          "bkzParam": 0.0169,
+          "szTitle": "孙权",
+          "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/3bd3a3aa4134c9f4bc7899b2ace87aca.jpg",
+          "szHeroType": "射手",
+          "tRank": "T1"
+        }
+      ]
+    },
+    "dfInfo": {
+      "heroId": 159,
+      "updateTime": "20260312",
+      "list": [
+        {
+          "dfHeroId1": 159,
+          "dfHeroId2": 123,
+          "showRateGain": 0.1259,
+          "winRateGain": 0.01648,
+          "dfParam": 10.58394,
+          "heroList": {
+            "123": {
+              "szTitle": "吕布",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/38d3801f4b62a57de1a0ad3f79b98c72.jpg",
+              "szHeroType": "战士/坦克",
+              "tRank": "T0"
+            },
+            "159": {
+              "szTitle": "朵莉亚",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/aa02540d64b9d32fff30f958d8dc7cfb.jpg",
+              "szHeroType": "辅助/法师",
+              "tRank": "T0"
+            }
+          }
+        },
+        {
+          "dfHeroId1": 159,
+          "dfHeroId2": 169,
+          "showRateGain": 0.08835,
+          "winRateGain": 0.01387,
+          "dfParam": 5.85354,
+          "heroList": {
+            "159": {
+              "szTitle": "朵莉亚",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/aa02540d64b9d32fff30f958d8dc7cfb.jpg",
+              "szHeroType": "辅助/法师",
+              "tRank": "T0"
+            },
+            "169": {
+              "szTitle": "后羿",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/d09631d5a0f92bff8a26c8dd2f70bd76.jpg",
+              "szHeroType": "射手",
+              "tRank": "T0"
+            }
+          }
+        },
+        {
+          "dfHeroId1": 159,
+          "dfHeroId2": 513,
+          "showRateGain": 0.15013,
+          "winRateGain": 0.02652,
+          "dfParam": 4.33079,
+          "heroList": {
+            "159": {
+              "szTitle": "朵莉亚",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/aa02540d64b9d32fff30f958d8dc7cfb.jpg",
+              "szHeroType": "辅助/法师",
+              "tRank": "T0"
+            },
+            "513": {
+              "szTitle": "上官婉儿",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/9f43ce35270de349e8c2bc7f55d56a91.jpg",
+              "szHeroType": "法师",
+              "tRank": "T0"
+            }
+          }
+        },
+        {
+          "dfHeroId1": 159,
+          "dfHeroId2": 519,
+          "showRateGain": 0.05409,
+          "winRateGain": 0.0037,
+          "dfParam": 3.96242,
+          "heroList": {
+            "159": {
+              "szTitle": "朵莉亚",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/aa02540d64b9d32fff30f958d8dc7cfb.jpg",
+              "szHeroType": "辅助/法师",
+              "tRank": "T0"
+            },
+            "519": {
+              "szTitle": "敖隐",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/d6ffb6dc14b8fb862cd1ef0350d9d797.jpg",
+              "szHeroType": "射手",
+              "tRank": "T0"
+            }
+          }
+        },
+        {
+          "dfHeroId1": 159,
+          "dfHeroId2": 521,
+          "showRateGain": 0.10099,
+          "winRateGain": 0.01,
+          "dfParam": 3.66957,
+          "heroList": {
+            "159": {
+              "szTitle": "朵莉亚",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/aa02540d64b9d32fff30f958d8dc7cfb.jpg",
+              "szHeroType": "辅助/法师",
+              "tRank": "T0"
+            },
+            "521": {
+              "szTitle": "海月",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/3977c930da067d6319f2eae8594073dd.jpg",
+              "szHeroType": "法师",
+              "tRank": "T0"
+            }
+          }
+        }
+      ]
+    },
+    "tfInfo": {
+      "heroId": 159,
+      "updateTime": "20260312",
+      "list": [
+        {
+          "tfHeroId1": 159,
+          "tfHeroId2": 123,
+          "tfHeroId3": 197,
+          "tfParam": 13.8646,
+          "heroList": {
+            "123": {
+              "szTitle": "吕布",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/38d3801f4b62a57de1a0ad3f79b98c72.jpg",
+              "szHeroType": "战士/坦克",
+              "tRank": "T0"
+            },
+            "159": {
+              "szTitle": "朵莉亚",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/aa02540d64b9d32fff30f958d8dc7cfb.jpg",
+              "szHeroType": "辅助/法师",
+              "tRank": "T0"
+            },
+            "197": {
+              "szTitle": "弈星",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/04e4e094473e9b4b3acf3a929e5592ce.jpg",
+              "szHeroType": "法师",
+              "tRank": "T0"
+            }
+          }
+        },
+        {
+          "tfHeroId1": 159,
+          "tfHeroId2": 169,
+          "tfHeroId3": 123,
+          "tfParam": 12.10948,
+          "heroList": {
+            "123": {
+              "szTitle": "吕布",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/38d3801f4b62a57de1a0ad3f79b98c72.jpg",
+              "szHeroType": "战士/坦克",
+              "tRank": "T0"
+            },
+            "159": {
+              "szTitle": "朵莉亚",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/aa02540d64b9d32fff30f958d8dc7cfb.jpg",
+              "szHeroType": "辅助/法师",
+              "tRank": "T0"
+            },
+            "169": {
+              "szTitle": "后羿",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/d09631d5a0f92bff8a26c8dd2f70bd76.jpg",
+              "szHeroType": "射手",
+              "tRank": "T0"
+            }
+          }
+        },
+        {
+          "tfHeroId1": 159,
+          "tfHeroId2": 123,
+          "tfHeroId3": 136,
+          "tfParam": 10.04398,
+          "heroList": {
+            "123": {
+              "szTitle": "吕布",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/38d3801f4b62a57de1a0ad3f79b98c72.jpg",
+              "szHeroType": "战士/坦克",
+              "tRank": "T0"
+            },
+            "136": {
+              "szTitle": "武则天",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/5f7b5eafb748be83b666a8d483e85e11.jpg",
+              "szHeroType": "法师",
+              "tRank": "T0"
+            },
+            "159": {
+              "szTitle": "朵莉亚",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/aa02540d64b9d32fff30f958d8dc7cfb.jpg",
+              "szHeroType": "辅助/法师",
+              "tRank": "T0"
+            }
+          }
+        },
+        {
+          "tfHeroId1": 159,
+          "tfHeroId2": 123,
+          "tfHeroId3": 130,
+          "tfParam": 9.86244,
+          "heroList": {
+            "123": {
+              "szTitle": "吕布",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/38d3801f4b62a57de1a0ad3f79b98c72.jpg",
+              "szHeroType": "战士/坦克",
+              "tRank": "T0"
+            },
+            "130": {
+              "szTitle": "宫本武藏",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/d966fcbc176d18cea426bf5d58cb1022.jpg",
+              "szHeroType": "战士/刺客",
+              "tRank": "T0"
+            },
+            "159": {
+              "szTitle": "朵莉亚",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/aa02540d64b9d32fff30f958d8dc7cfb.jpg",
+              "szHeroType": "辅助/法师",
+              "tRank": "T0"
+            }
+          }
+        },
+        {
+          "tfHeroId1": 159,
+          "tfHeroId2": 123,
+          "tfHeroId3": 132,
+          "tfParam": 9.36477,
+          "heroList": {
+            "123": {
+              "szTitle": "吕布",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/38d3801f4b62a57de1a0ad3f79b98c72.jpg",
+              "szHeroType": "战士/坦克",
+              "tRank": "T0"
+            },
+            "132": {
+              "szTitle": "马可波罗",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/13065163d87a9193f163c713cc5d2a1c.jpg",
+              "szHeroType": "射手",
+              "tRank": "T0"
+            },
+            "159": {
+              "szTitle": "朵莉亚",
+              "szHeroIcon": "https://game-1255653016.file.myqcloud.com/manage/compress/custom_wzry_E1/aa02540d64b9d32fff30f958d8dc7cfb.jpg",
+              "szHeroType": "辅助/法师",
+              "tRank": "T0"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
