@@ -67,13 +67,55 @@
         .pick-active-red { animation: pickPulseRed 1.5s ease-in-out infinite; }
         
         /* 下拉菜单金边黑底美化 */
-        select.lane-select { 
-            appearance: none; 
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fde047' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); 
-            background-repeat: no-repeat; background-position: right 4px center; background-size: 14px; padding-right: 20px; 
+        select.lane-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fde047' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat; background-position: right 4px center; background-size: 14px; padding-right: 20px;
             background-color: rgba(0,0,0,0.85); border: 1px solid #ca8a04; color: #fde047;
             box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
+
+        /* 胶囊切换滑块 */
+        .capsule-switch {
+            position: relative;
+            display: inline-flex;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(234,179,8,0.2);
+            border-radius: 9999px;
+            padding: 2px;
+        }
+        .capsule-switch .capsule-slider {
+            position: absolute;
+            top: 2px;
+            bottom: 2px;
+            border-radius: 9999px;
+            transition: left 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s ease;
+            z-index: 0;
+        }
+        .capsule-switch button {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Ban斜线动画 */
+        @keyframes banSlash {
+            0% { transform: rotate(-45deg) scaleX(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: rotate(-45deg) scaleX(1); opacity: 1; }
+        }
+        .ban-slash-line {
+            animation: banSlash 0.4s ease-out forwards;
+        }
+
+        /* 模态窗口动画 */
+        .modal-backdrop-enter { animation: modalBgIn 0.3s ease forwards; }
+        .modal-backdrop-leave { animation: modalBgOut 0.25s ease forwards; }
+        @keyframes modalBgIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes modalBgOut { from { opacity: 1; } to { opacity: 0; } }
+        .modal-content-enter { animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        .modal-content-leave { animation: modalOut 0.2s ease forwards; }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes modalOut { from { opacity: 1; transform: scale(1) translateY(0); } to { opacity: 0; transform: scale(0.95) translateY(10px); } }
     </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans relative">
@@ -86,22 +128,30 @@
             <div class="mt-4 text-lg font-bold glass-panel inline-block px-10 py-2.5 rounded-full border border-yellow-600/40 shadow-[0_0_20px_rgba(234,179,8,0.15)]">
                 当前指示：<span :class="currentTeamColor" class="ml-2 tracking-wide">{{ currentPhaseText }}</span>
             </div>
-            <div class="mt-2 flex items-center justify-center gap-1">
-                <button @click="mySide = 'blue'"
-                        :class="['px-4 py-1 text-xs font-bold rounded-l-full border transition-all',
-                                 mySide === 'blue' ? 'bg-blue-600/80 text-white border-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.4)]' : 'bg-black/50 text-blue-800 border-yellow-900/30 hover:text-blue-400']">
-                    蓝方
-                </button>
-                <button @click="mySide = 'spectator'"
-                        :class="['px-4 py-1 text-xs font-bold border-y transition-all',
-                                 mySide === 'spectator' ? 'bg-yellow-600/80 text-white border-yellow-400 shadow-[0_0_10px_rgba(234,179,8,0.3)]' : 'bg-black/50 text-yellow-800 border-yellow-900/30 hover:text-yellow-400']">
-                    观战
-                </button>
-                <button @click="mySide = 'red'"
-                        :class="['px-4 py-1 text-xs font-bold rounded-r-full border transition-all',
-                                 mySide === 'red' ? 'bg-red-600/80 text-white border-red-400 shadow-[0_0_10px_rgba(239,68,68,0.4)]' : 'bg-black/50 text-red-800 border-yellow-900/30 hover:text-red-400']">
-                    红方
-                </button>
+            <div class="mt-2 flex items-center justify-center">
+                <div class="capsule-switch">
+                    <div class="capsule-slider"
+                         :style="{ left: mySide === 'blue' ? '2px' : mySide === 'spectator' ? 'calc(33.33% + 1px)' : 'calc(66.66% + 0px)',
+                                   width: 'calc(33.33% - 2px)',
+                                   background: mySide === 'blue' ? 'rgba(37,99,235,0.7)' : mySide === 'spectator' ? 'rgba(202,138,4,0.7)' : 'rgba(220,38,38,0.7)',
+                                   boxShadow: mySide === 'blue' ? '0 0 12px rgba(59,130,246,0.5)' : mySide === 'spectator' ? '0 0 12px rgba(234,179,8,0.4)' : '0 0 12px rgba(239,68,68,0.5)' }">
+                    </div>
+                    <button @click="mySide = 'blue'"
+                            :class="['px-5 py-1 text-xs font-bold rounded-full transition-colors duration-300',
+                                     mySide === 'blue' ? 'text-white' : 'text-blue-800 hover:text-blue-400']">
+                        蓝方
+                    </button>
+                    <button @click="mySide = 'spectator'"
+                            :class="['px-5 py-1 text-xs font-bold rounded-full transition-colors duration-300',
+                                     mySide === 'spectator' ? 'text-white' : 'text-yellow-800 hover:text-yellow-400']">
+                        观战
+                    </button>
+                    <button @click="mySide = 'red'"
+                            :class="['px-5 py-1 text-xs font-bold rounded-full transition-colors duration-300',
+                                     mySide === 'red' ? 'text-white' : 'text-red-800 hover:text-red-400']">
+                        红方
+                    </button>
+                </div>
             </div>
             <button @click="showPrefModal = true" class="absolute right-4 top-2 glass-panel hover:bg-black/80 hover:border-yellow-400 px-5 py-2.5 rounded-xl font-bold transition-all text-yellow-500 hover:text-yellow-300 flex items-center gap-2">
                 <span class="text-xl">⚙️</span> 战术偏好设定
@@ -110,7 +160,7 @@
 
         <main class="flex-1 flex gap-5 overflow-hidden z-10 relative">
             
-            <aside class="w-1/5 flex flex-col gap-4 glass-panel p-4 rounded-2xl flex-shrink-0 relative">
+            <aside class="w-1/5 flex flex-col gap-4 glass-panel p-4 rounded-2xl flex-shrink-0 relative overflow-visible">
                 <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-transparent rounded-t-2xl opacity-50"></div>
                 <h2 class="text-blue-400 text-2xl font-bold text-center border-b border-blue-900/50 pb-2 tracking-widest drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">蓝色方</h2>
                 <div class="flex justify-center gap-1.5 mb-2">
@@ -152,13 +202,13 @@
                         </div>
                     </div>
 
-                    <div v-if="recommendations.length > 0" class="mb-5 bg-black/60 p-4 rounded-xl border border-yellow-600/40 shadow-[0_0_20px_rgba(0,0,0,0.8)] w-full flex flex-col">
+                    <div v-if="filteredRecommendations.length > 0" class="mb-5 bg-black/60 p-4 rounded-xl border border-yellow-600/40 shadow-[0_0_20px_rgba(0,0,0,0.8)] w-full flex flex-col">
                         <h3 class="text-yellow-400 font-bold text-sm mb-3 flex items-center gap-2 tracking-wide uppercase">
                             <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
-                            AI 战术最优解 Top 10
+                            AI 战术最优解 {{ currentRole === '全部' ? 'Top 10' : currentRole + ' Top' }}
                         </h3>
                         <div class="flex gap-3.5 overflow-x-auto custom-scrollbar pb-2 pt-1 w-full">
-                            <div v-for="(rec, index) in recommendations" :key="rec.hero_id" 
+                            <div v-for="(rec, index) in filteredRecommendations" :key="rec.hero_id"
                                  @click="selectHeroById(rec.hero_id)"
                                  class="flex-shrink-0 w-32 bg-gray-900 rounded-xl overflow-hidden border border-yellow-900/50 cursor-pointer hover:border-yellow-400 transition-all hover:-translate-y-1 hover:shadow-[0_5px_15px_rgba(234,179,8,0.3)] relative group [transform:translateZ(0)]">
                                 <div v-if="rec.is_good_at" class="absolute -left-7 top-1 bg-red-600 text-white text-[10px] font-bold px-7 py-0.5 -rotate-45 z-10 shadow-md">绝活</div>
@@ -190,8 +240,11 @@
                                     <span v-if="badAtIds.includes(hero.hero_id.toString())" class="text-blue-500 text-[10px] drop-shadow-md">🧊</span>
                                     {{ hero.name }}
                                 </div>
-                                <div v-if="isHeroSelected(hero) && currentPhase?.action === 'ban'" class="absolute inset-0 bg-red-900/60 backdrop-blur-[2px] flex items-center justify-center">
-                                    <span class="text-red-300 font-extrabold text-2xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] border-y-2 border-red-500/50 w-full text-center py-1 bg-black/40">BAN</span>
+                                <div v-if="isHeroSelected(hero) && currentPhase?.action === 'ban'" class="absolute inset-0 flex items-center justify-center overflow-hidden">
+                                    <div class="absolute inset-0 bg-red-900/30"></div>
+                                    <div class="ban-slash-line absolute w-[150%] h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent shadow-[0_0_8px_rgba(239,68,68,0.8)]" style="transform-origin: center;"></div>
+                                    <div class="ban-slash-line absolute w-[150%] h-[6px] bg-red-900/40" style="transform-origin: center; animation-delay: 0.1s;"></div>
+                                    <span class="relative text-red-400 font-extrabold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] mt-6 tracking-widest">BAN</span>
                                 </div>
                             </div>
                         </div>
@@ -289,7 +342,7 @@
                 </div>
             </section>
 
-            <aside class="w-1/5 flex flex-col gap-4 glass-panel p-4 rounded-2xl flex-shrink-0 relative">
+            <aside class="w-1/5 flex flex-col gap-4 glass-panel p-4 rounded-2xl flex-shrink-0 relative overflow-visible">
                 <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-transparent rounded-t-2xl opacity-50"></div>
                 <h2 class="text-red-400 text-2xl font-bold text-center border-b border-red-900/50 pb-2 tracking-widest drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">红色方</h2>
                 <div class="flex justify-center gap-1.5 mb-2">
@@ -317,15 +370,17 @@
             
         </main>
 
-        <div v-if="showPrefModal" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 backdrop-blur-md">
-            <div class="bg-gray-900 rounded-3xl w-full max-w-5xl h-[85vh] flex flex-col border border-yellow-700/50 shadow-[0_0_50px_rgba(202,138,4,0.15)] relative overflow-hidden">
+        <div v-if="showPrefModal" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 backdrop-blur-md"
+             :class="prefModalClosing ? 'modal-backdrop-leave' : 'modal-backdrop-enter'">
+            <div class="bg-gray-900 rounded-3xl w-full max-w-5xl h-[85vh] flex flex-col border border-yellow-700/50 shadow-[0_0_50px_rgba(202,138,4,0.15)] relative overflow-hidden"
+                 :class="prefModalClosing ? 'modal-content-leave' : 'modal-content-enter'">
                 <div class="absolute top-0 w-full h-2 bg-gradient-to-r from-yellow-700 via-yellow-400 to-yellow-700"></div>
                 <div class="p-8 border-b border-gray-800 flex justify-between items-center bg-black/40">
                     <div>
                         <h2 class="text-3xl font-black text-gold-gradient uppercase tracking-widest">战术英雄池档案</h2>
                         <p class="text-gray-500 text-sm mt-2 font-bold tracking-wide">配置后，系统将在计算链路中赋予绝活英雄 <span class="text-red-500">最高优先级</span> 权重。</p>
                     </div>
-                    <button v-if="hasSavedPrefs" @click="showPrefModal = false" class="text-gray-600 hover:text-yellow-500 text-4xl transition-colors">&times;</button>
+                    <button v-if="hasSavedPrefs" @click="closePrefModal" class="text-gray-600 hover:text-yellow-500 text-4xl transition-colors">&times;</button>
                 </div>
                 <div class="flex-1 flex flex-col p-8 overflow-hidden bg-black/20">
                     <div class="flex gap-6 mb-6">
@@ -336,9 +391,17 @@
                             🧊 封印雷区 ({{ badAtIds.length }})
                         </button>
                     </div>
+                    <div class="flex gap-2 mb-4 flex-wrap">
+                        <button v-for="role in roles" :key="'pref-role-'+role"
+                                @click="prefRole = role"
+                                :class="['px-4 py-1 rounded-full text-xs font-bold transition-all duration-300 border',
+                                         prefRole === role ? 'bg-yellow-600 text-white border-yellow-400 shadow-[0_0_10px_rgba(202,138,4,0.4)]' : 'bg-black/50 text-yellow-700 border-gray-800 hover:border-yellow-600/50 hover:text-yellow-400']">
+                            {{ role }}
+                        </button>
+                    </div>
                     <div class="flex-1 overflow-y-auto custom-scrollbar border border-gray-800/50 p-4 rounded-2xl bg-black/40 shadow-inner">
                         <div class="grid grid-cols-6 lg:grid-cols-8 gap-4">
-                            <div v-for="hero in heroes" :key="'pref'+hero.hero_id" 
+                            <div v-for="hero in prefFilteredHeroes" :key="'pref'+hero.hero_id"
                                  @click="togglePrefHero(hero.hero_id.toString())"
                                  :class="['cursor-pointer rounded-xl overflow-hidden relative border-2 transition-all duration-300', 
                                           goodAtIds.includes(hero.hero_id.toString()) ? 'border-red-500 scale-105 shadow-[0_0_15px_rgba(220,38,38,0.5)] z-10' : 
@@ -378,8 +441,10 @@
                 const recommendations = ref([]);
 
                 const showPrefModal = ref(false);
+                const prefModalClosing = ref(false);
                 const hasSavedPrefs = ref(false);
                 const prefTab = ref('good');
+                const prefRole = ref('全部');
                 const goodAtIds = ref([]);
                 const badAtIds = ref([]);
                 
@@ -566,6 +631,25 @@
                     }
                 });
 
+                watch(() => mySide.value, () => {
+                    if (!isGameOver.value && bpSequence[stepIndex.value]?.action === 'pick') {
+                        fetchRecommendations();
+                    }
+                });
+
+                const prefFilteredHeroes = computed(() => {
+                    if (prefRole.value === '全部') return heroes.value;
+                    return heroes.value.filter(h => h.roles.includes(prefRole.value));
+                });
+
+                const closePrefModal = () => {
+                    prefModalClosing.value = true;
+                    setTimeout(() => {
+                        showPrefModal.value = false;
+                        prefModalClosing.value = false;
+                    }, 250);
+                };
+
                 const togglePrefHero = (id) => {
                     if (prefTab.value === 'good') {
                         badAtIds.value = badAtIds.value.filter(hid => hid !== id);
@@ -581,7 +665,7 @@
                 const savePreferences = () => {
                     localStorage.setItem('bp_simulator_prefs', JSON.stringify({ goodAt: goodAtIds.value, badAt: badAtIds.value }));
                     hasSavedPrefs.value = true;
-                    showPrefModal.value = false;
+                    closePrefModal();
                     if (stepIndex.value > 1 && !isGameOver.value) fetchRecommendations();
                 };
 
@@ -611,6 +695,14 @@
                     return result;
                 });
 
+                const filteredRecommendations = computed(() => {
+                    if (currentRole.value === '全部') return recommendations.value;
+                    return recommendations.value.filter(rec => {
+                        const hero = heroes.value.find(h => h.hero_id.toString() === rec.hero_id.toString());
+                        return hero && hero.roles.includes(currentRole.value);
+                    });
+                });
+
                 const pickedAndBannedIds = computed(() => {
                     const picked = [...bluePicks.value, ...redPicks.value].map(p => p.hero.hero_id);
                     if (currentPhase.value?.action === 'ban') return picked;
@@ -620,6 +712,10 @@
 
                 const isHeroVisible = (hero) => {
                     if (currentRole.value !== '全部' && !hero.roles.includes(currentRole.value)) return false;
+                    if (searchQuery.value.trim()) {
+                        const query = searchQuery.value.trim().toLowerCase();
+                        if (!hero.name.toLowerCase().includes(query)) return false;
+                    }
                     return true;
                 };
                 const isHeroSelected = (hero) => activeHeroes.value.some(h => h.hero_id === hero.hero_id);
@@ -726,8 +822,8 @@
                     activeHeroes, currentPhase, currentPhaseText, currentTeamColor, activePickSlot, isGameOver,
                     isHeroVisible, isHeroSelected, selectHero, selectHeroById, isHeroDisabled,
                     lockIn, lockButtonText, isLockDisabled, getSplashUrl,
-                    recommendations, matchupPairs, blueRadarRef, redRadarRef, blueOverallScore, redOverallScore,
-                    showPrefModal, hasSavedPrefs, prefTab, goodAtIds, badAtIds, togglePrefHero, savePreferences
+                    recommendations, filteredRecommendations, matchupPairs, blueRadarRef, redRadarRef, blueOverallScore, redOverallScore,
+                    showPrefModal, prefModalClosing, hasSavedPrefs, prefTab, prefRole, prefFilteredHeroes, goodAtIds, badAtIds, togglePrefHero, savePreferences, closePrefModal
                 };
             }
         }).mount('#app');
