@@ -607,7 +607,7 @@
                                         .map(h => h.hero_id.toString());
 
                     try {
-                        const res = await fetch('http://127.0.0.1:8000/api/recommend', {
+                        const res = await fetch('https://hok-ai-coach.onrender.com', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
