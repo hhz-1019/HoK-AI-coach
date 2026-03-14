@@ -1,11 +1,23 @@
 import json
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import List
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 class BPEngine:
     def __init__(self, db_path):
+        db_path = os.path.join(BASE_DIR, db_path)
+        
+        # 增加一个检查逻辑，方便在日志里看报错
+        if not os.path.exists(db_path):
+            print(f"CRITICAL ERROR: {db_path} 不存在！当前目录下文件有: {os.listdir(BASE_DIR)}")
+            self.heroes = []
+            self.hero_map = {}
+            return
         with open(db_path, 'r', encoding='utf-8') as f:
             self.db = json.load(f)
         self.heroes = self.db.get("heroes", [])
@@ -156,6 +168,13 @@ class BPRequest(BaseModel):
     good_at_ids: List[str] = []
     bad_at_ids: List[str] = []
 
+@app.get("/hero_database_full.json")
+async def get_json():
+    path = os.path.join(BASE_DIR, 'hero_database_full.json')
+    if os.path.exists(path):
+        return FileResponse(path)
+    return {"error": "File not found", "checked_path": path}
+
 @app.post("/api/recommend")
 async def get_recommendations(req: BPRequest):
     recs = bp_engine.recommend(
@@ -169,4 +188,7 @@ async def get_recommendations(req: BPRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    import os
+    # 优先读取系统分配的端口，如果没有（比如在本地），则默认使用 8000
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
