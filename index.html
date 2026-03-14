@@ -148,12 +148,13 @@
 
                     <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar">
                         <div class="grid grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3">
-                            <div v-for="hero in filteredHeroes" :key="hero.hero_id" 
+                            <div v-for="hero in heroes" :key="hero.hero_id"
+                                 v-show="isHeroVisible(hero)"
                                  @click="selectHero(hero)"
-                                 :class="['hero-avatar cursor-pointer rounded-xl overflow-hidden relative border-2 bg-black/40', 
+                                 :class="['hero-avatar cursor-pointer rounded-xl overflow-hidden relative border-2 bg-black/40',
                                           isHeroSelected(hero) ? 'selected-hero' : 'border-transparent',
                                           isHeroDisabled(hero) ? 'disabled-hero' : '']">
-                                <img :src="hero.avatar_url" :alt="hero.name" class="w-full object-cover aspect-square">
+                                <img :src="hero.avatar_url" :alt="hero.name" loading="lazy" class="w-full object-cover aspect-square">
                                 <div class="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent pt-5 pb-1 text-center text-xs font-bold text-yellow-100 flex justify-center items-center gap-1 tracking-wide">
                                     <span v-if="goodAtIds.includes(hero.hero_id.toString())" class="text-red-500 text-[10px] drop-shadow-md">🔥</span>
                                     <span v-if="badAtIds.includes(hero.hero_id.toString())" class="text-blue-500 text-[10px] drop-shadow-md">🧊</span>
@@ -382,6 +383,11 @@
                         console.log("加载数据失败");
                     }
 
+                    heroes.value.forEach(h => {
+                        const img = new Image();
+                        img.src = getSplashUrl(h.hero_id);
+                    });
+
                     const savedPrefs = localStorage.getItem('bp_simulator_prefs');
                     if (savedPrefs) {
                         const parsed = JSON.parse(savedPrefs);
@@ -570,6 +576,10 @@
                     return [...picked, ...banned];
                 });
 
+                const isHeroVisible = (hero) => {
+                    if (currentRole.value !== '全部' && !hero.roles.includes(currentRole.value)) return false;
+                    return true;
+                };
                 const isHeroSelected = (hero) => activeHeroes.value.some(h => h.hero_id === hero.hero_id);
                 const isHeroDisabled = (hero) => pickedAndBannedIds.value.includes(hero.hero_id);
 
@@ -670,7 +680,7 @@
                     heroes, roles, lanes, currentRole, searchQuery, filteredHeroes,
                     blueBans, redBans, bluePicks, redPicks,
                     activeHeroes, currentPhaseText, currentTeamColor, isGameOver,
-                    isHeroSelected, selectHero, selectHeroById, isHeroDisabled, 
+                    isHeroVisible, isHeroSelected, selectHero, selectHeroById, isHeroDisabled,
                     lockIn, lockButtonText, isLockDisabled, getSplashUrl,
                     recommendations, matchupPairs, blueRadarRef, redRadarRef, blueOverallScore, redOverallScore,
                     showPrefModal, hasSavedPrefs, prefTab, goodAtIds, badAtIds, togglePrefHero, savePreferences
