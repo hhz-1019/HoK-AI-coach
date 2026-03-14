@@ -368,7 +368,7 @@
 
                 onMounted(async () => {
                     try {
-                        const response = await fetch('https://hok-ai-coach.onrender.com/hero_database_full.json'); 
+                        const response = await fetch('/hero_database_full.json'); 
                         if(response.ok) {
                             const data = await response.json();
                             heroes.value = data.heroes;
@@ -607,7 +607,7 @@
                                         .map(h => h.hero_id.toString());
 
                     try {
-                        const res = await fetch('https://hok-ai-coach.onrender.com/api/recommend', {
+                        const res = await fetch('/api/recommend', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({

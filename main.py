@@ -160,6 +160,13 @@ app.add_middleware(
 
 bp_engine = BPEngine('hero_database_full.json')
 
+@app.get("/")
+async def get_index():
+    path = os.path.join(BASE_DIR, 'index.html')
+    if os.path.exists(path):
+        return FileResponse(path)
+    return {"error": "index.html not found", "checked_path": path}
+
 # 🌟 新增偏好字段
 class BPRequest(BaseModel):
     my_team_ids: List[str]
