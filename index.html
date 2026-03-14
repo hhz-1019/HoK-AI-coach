@@ -99,11 +99,12 @@
 
         /* Ban斜线动画 */
         @keyframes banSlash {
-            0% { transform: rotate(-45deg) scaleX(0); opacity: 0; }
+            0% { transform: rotate(45deg) scaleX(0); opacity: 0; }
             50% { opacity: 1; }
-            100% { transform: rotate(-45deg) scaleX(1); opacity: 1; }
+            100% { transform: rotate(45deg) scaleX(1); opacity: 1; }
         }
         .ban-slash-line {
+            transform: rotate(45deg) scaleX(0);
             animation: banSlash 0.4s ease-out forwards;
         }
 
