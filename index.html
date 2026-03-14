@@ -109,13 +109,17 @@
             <section class="flex-1 flex flex-col min-w-0 glass-panel p-5 rounded-2xl relative overflow-y-auto custom-scrollbar">
                 
                 <template v-if="!isGameOver">
-                    <div class="flex gap-3 justify-center mb-5 flex-wrap border-b border-yellow-900/30 pb-4">
-                        <button v-for="role in roles" :key="role" 
+                    <div class="flex gap-3 justify-center mb-5 flex-wrap border-b border-yellow-900/30 pb-4 items-center">
+                        <button v-for="role in roles" :key="role"
                                 @click="currentRole = role"
-                                :class="['px-5 py-1.5 rounded-full text-sm font-bold transition-all duration-300 border', 
+                                :class="['px-5 py-1.5 rounded-full text-sm font-bold transition-all duration-300 border',
                                          currentRole === role ? 'bg-yellow-600 text-white border-yellow-400 shadow-[0_0_15px_rgba(202,138,4,0.6)]' : 'bg-black/50 text-yellow-600 border-yellow-900 hover:bg-yellow-900/30 hover:text-yellow-400']">
                             {{ role }}
                         </button>
+                        <div class="relative ml-4">
+                            <input v-model="searchQuery" type="text" placeholder="搜索英雄..."
+                                   class="bg-black/70 border border-yellow-900/50 text-yellow-100 placeholder-yellow-800/50 rounded-full px-4 py-1.5 text-sm font-bold outline-none focus:border-yellow-500 focus:shadow-[0_0_10px_rgba(234,179,8,0.3)] transition-all w-40 focus:w-52">
+                        </div>
                     </div>
 
                     <div v-if="recommendations.length > 0" class="mb-5 bg-black/60 p-4 rounded-xl border border-yellow-600/40 shadow-[0_0_20px_rgba(0,0,0,0.8)] w-full flex flex-col">
@@ -329,6 +333,7 @@
                 const roles = ['全部', '战士', '法师', '刺客', '坦克', '射手', '辅助'];
                 const lanes = ['对抗路', '打野', '中路', '发育路', '游走']; 
                 const currentRole = ref('全部');
+                const searchQuery = ref('');
 
                 const blueBans = ref([]);
                 const redBans = ref([]);
@@ -548,8 +553,15 @@
                 });
 
                 const filteredHeroes = computed(() => {
-                    if (currentRole.value === '全部') return heroes.value;
-                    return heroes.value.filter(h => h.roles.includes(currentRole.value));
+                    let result = heroes.value;
+                    if (currentRole.value !== '全部') {
+                        result = result.filter(h => h.roles.includes(currentRole.value));
+                    }
+                    if (searchQuery.value.trim()) {
+                        const query = searchQuery.value.trim().toLowerCase();
+                        result = result.filter(h => h.name.toLowerCase().includes(query));
+                    }
+                    return result;
                 });
 
                 const pickedAndBannedIds = computed(() => {
@@ -655,7 +667,7 @@
                 };
 
                 return {
-                    heroes, roles, lanes, currentRole, filteredHeroes,
+                    heroes, roles, lanes, currentRole, searchQuery, filteredHeroes,
                     blueBans, redBans, bluePicks, redPicks,
                     activeHeroes, currentPhaseText, currentTeamColor, isGameOver,
                     isHeroSelected, selectHero, selectHeroById, isHeroDisabled, 
