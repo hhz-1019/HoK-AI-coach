@@ -456,6 +456,10 @@
                 let blueChart = null;
                 let redChart = null;
 
+                const isLocalHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+                const isBackendSameOrigin = window.location.port === '8000';
+                const API_BASE = (isLocalHost && !isBackendSameOrigin) ? 'http://127.0.0.1:8000' : '';
+
                 const bpSequence = [
                     { action: 'ban', team: 'blue', text: 'BLUE TEAM 盲禁序列 (0~5)' },
                     { action: 'ban', team: 'red', text: 'RED TEAM 盲禁序列 (0~5)' },
@@ -474,7 +478,7 @@
 
                 onMounted(async () => {
                     try {
-                        const response = await fetch('/hero_database_full.json'); 
+                        const response = await fetch(`${API_BASE}/hero_database_full.json`);
                         if(response.ok) {
                             const data = await response.json();
                             heroes.value = data.heroes;
@@ -559,6 +563,41 @@
 
                     blueChart = echarts.init(blueRadarRef.value);
                     redChart = echarts.init(redRadarRef.value);
+
+                    const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+                    const calcTeamQuality = (picks) => {
+                        const roles = picks.filter(p => p && p.hero).map(p => p.hero.roles?.[0]).filter(Boolean);
+                        const roleCount = {};
+                        roles.forEach(r => { roleCount[r] = (roleCount[r] || 0) + 1; });
+
+                        let score = 75;
+
+                        Object.values(roleCount).forEach(count => {
+                            if (count > 1) score -= (count - 1) * 6;
+                        });
+
+                        const hasFrontline = (roleCount['坦克'] || 0) + (roleCount['战士'] || 0) > 0;
+                        const hasSupport = (roleCount['辅助'] || 0) > 0;
+                        const hasMagic = (roleCount['法师'] || 0) > 0;
+                        const hasMarksman = (roleCount['射手'] || 0) > 0;
+
+                        if (!hasFrontline) score -= 12;
+                        if (!hasSupport) score -= 7;
+                        if (!hasMagic) score -= 6;
+                        if (!hasMarksman) score -= 6;
+
+                        return clamp(score, 35, 95);
+                    };
+
+                    const calcLanePressure = (team) => {
+                        if (!matchupPairs.value.length) return 50;
+                        const values = matchupPairs.value.map(pair => {
+                            const v = team === 'blue' ? Number(pair.blueAdvantage) : Number(pair.redAdvantage);
+                            return Number.isFinite(v) ? v : 50;
+                        });
+                        return values.reduce((sum, v) => sum + v, 0) / values.length;
+                    };
                     
                     const calcStats = (picks) => {
                         let stats = { burst: 0, dps: 0, sustain: 0, control: 0, mobility: 0 };
@@ -584,9 +623,20 @@
                     const blueData = calcStats(bluePicks.value);
                     const redData = calcStats(redPicks.value);
 
-                    const calcOverall = (data) => Math.round(data.reduce((a, b) => a + b, 0) / data.length);
-                    blueOverallScore.value = calcOverall(blueData);
-                    redOverallScore.value = calcOverall(redData);
+                    const calcOverall = (data, teamQuality, lanePressure) => {
+                        const radarBase = data.reduce((a, b) => a + b, 0) / data.length;
+                        const laneAdjustment = (lanePressure - 50) * 0.35;
+                        const total = radarBase * 0.5 + teamQuality * 0.5 + laneAdjustment;
+                        return Math.round(clamp(total, 35, 96));
+                    };
+
+                    const blueTeamQuality = calcTeamQuality(bluePicks.value);
+                    const redTeamQuality = calcTeamQuality(redPicks.value);
+                    const blueLanePressure = calcLanePressure('blue');
+                    const redLanePressure = calcLanePressure('red');
+
+                    blueOverallScore.value = calcOverall(blueData, blueTeamQuality, blueLanePressure);
+                    redOverallScore.value = calcOverall(redData, redTeamQuality, redLanePressure);
 
                     const commonOption = {
                         tooltip: { backgroundColor: 'rgba(0,0,0,0.8)', borderColor: goldColor, textStyle: { color: '#fff' } },
@@ -770,7 +820,7 @@
                     const isMyTurn = mySide.value === 'spectator' || mySide.value === currentPhase.value.team;
 
                     try {
-                        const res = await fetch('/api/recommend', {
+                        const res = await fetch(`${API_BASE}/api/recommend`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({

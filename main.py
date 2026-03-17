@@ -1,5 +1,6 @@
 import json
 import os
+import math
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
@@ -11,6 +12,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 class BPEngine:
     def __init__(self, db_path):
         db_path = os.path.join(BASE_DIR, db_path)
+        role_path = os.path.join(BASE_DIR, 'role.json')
+        alias_path = os.path.join(BASE_DIR, 'hero_aliases.json')
         
         # 增加一个检查逻辑，方便在日志里看报错
         if not os.path.exists(db_path):
@@ -20,9 +23,40 @@ class BPEngine:
             return
         with open(db_path, 'r', encoding='utf-8') as f:
             self.db = json.load(f)
+
+        self.role_lane_map = {}
+        if os.path.exists(role_path):
+            with open(role_path, 'r', encoding='utf-8') as f:
+                self.role_lane_map = json.load(f)
+
         self.heroes = self.db.get("heroes", [])
         self.hero_map = {str(h["hero_id"]): h for h in self.heroes}
         self.official_roles = {"战士", "法师", "坦克", "刺客", "射手", "辅助"}
+
+        self.default_role_to_lanes = {
+            "战士": ["对抗路"],
+            "法师": ["中路"],
+            "坦克": ["对抗路", "游走"],
+            "刺客": ["打野"],
+            "射手": ["发育路"],
+            "辅助": ["游走"]
+        }
+
+        # 英雄别名映射已外置到 hero_aliases.json，便于持续维护
+        self.hero_name_aliases = self.get_default_hero_aliases()
+        if os.path.exists(alias_path):
+            try:
+                with open(alias_path, 'r', encoding='utf-8') as f:
+                    loaded_aliases = json.load(f)
+                if isinstance(loaded_aliases, dict):
+                    self.hero_name_aliases.update(loaded_aliases)
+            except Exception as e:
+                print(f"WARN: hero_aliases.json 读取失败，将使用内置别名映射。错误: {e}")
+
+        self.normalized_role_lane_map = {
+            self.normalize_hero_name(name): lanes
+            for name, lanes in self.role_lane_map.items()
+        }
         
         # 你的手动梯度字典保持不变
         self.tier_scores = {
@@ -57,21 +91,154 @@ class BPEngine:
     def get_meta_score_by_name(self, hero_name):
         return self.tier_scores.get(hero_name, 5)
 
+    def clamp(self, value, lower, upper):
+        return max(lower, min(upper, value))
+
+    def squash_score(self, raw_score, scale):
+        # 使用 tanh 做饱和压缩，避免单项极值把总分拉爆
+        return math.tanh(raw_score / scale)
+
+    def signed_power_stretch(self, value, power):
+        # 拉开高低分差距：中段更稳，强势与劣势更明显
+        return math.copysign(abs(value) ** power, value)
+
+    def get_primary_role(self, hero):
+        roles = hero.get("roles", [])
+        return roles[0] if roles else None
+
+    def get_default_hero_aliases(self):
+        return {
+            "鲁班七号": "鲁班",
+            "李元芳": "元芳",
+            "马可波罗": "马可",
+            "元流之子(法师)": "元法",
+            "元流之子(坦克)": "元坦",
+            "元流之子(射手)": "元射",
+            "元流之子(辅助)": "元辅",
+            "蚩奼": "蚩姹"
+        }
+
+    def normalize_hero_name(self, name):
+        if not name:
+            return ""
+        text = str(name).strip()
+        text = text.replace("（", "(").replace("）", ")")
+        text = text.replace(" ", "")
+        return text
+
+    def get_lane_options_by_name(self, hero_name):
+        if not hero_name:
+            return []
+
+        # 1) 先尝试原名/别名精确命中
+        if hero_name in self.role_lane_map:
+            return self.role_lane_map[hero_name]
+
+        alias_name = self.hero_name_aliases.get(hero_name)
+        if alias_name and alias_name in self.role_lane_map:
+            return self.role_lane_map[alias_name]
+
+        # 2) 归一化后再匹配
+        normalized_name = self.normalize_hero_name(hero_name)
+        if normalized_name in self.normalized_role_lane_map:
+            return self.normalized_role_lane_map[normalized_name]
+
+        if alias_name:
+            normalized_alias = self.normalize_hero_name(alias_name)
+            if normalized_alias in self.normalized_role_lane_map:
+                return self.normalized_role_lane_map[normalized_alias]
+
+        return []
+
+    def get_hero_lane_options(self, hero):
+        # 优先使用 role.json 的分路定义
+        from_role_json = self.get_lane_options_by_name(hero.get("name"))
+        if from_role_json:
+            return from_role_json
+
+        # role.json 未覆盖时，回退到 roles 推断
+        lane_options = []
+        for role in hero.get("roles", []):
+            lane_options.extend(self.default_role_to_lanes.get(role, []))
+
+        # 去重且保序
+        return list(dict.fromkeys(lane_options))
+
+    def get_occupied_lanes(self, my_team_ids):
+        occupied_lanes = set()
+        for hid in my_team_ids:
+            hero = self.hero_map.get(str(hid))
+            if not hero:
+                continue
+
+            options = self.get_hero_lane_options(hero)
+            if not options:
+                continue
+
+            picked_lane = None
+            for lane in options:
+                if lane not in occupied_lanes:
+                    picked_lane = lane
+                    break
+
+            if not picked_lane:
+                picked_lane = options[0]
+
+            occupied_lanes.add(picked_lane)
+
+        return occupied_lanes
+
+    def get_team_composition_penalty(self, my_team_ids, candidate_hero):
+        # 根据补位后阵容结构进行惩罚，让“随便拼”更难拿高分
+        team_heroes = []
+        for hid in my_team_ids:
+            h = self.hero_map.get(str(hid))
+            if h:
+                team_heroes.append(h)
+        team_heroes.append(candidate_hero)
+
+        primary_roles = [self.get_primary_role(h) for h in team_heroes if self.get_primary_role(h)]
+        role_counts = {}
+        for role in primary_roles:
+            role_counts[role] = role_counts.get(role, 0) + 1
+
+        penalty = 0.0
+
+        # 重复主职业会降低阵容稳定性
+        for count in role_counts.values():
+            if count > 1:
+                penalty += (count - 1) * 4.0
+
+        team_size = len(team_heroes)
+        has_frontline = role_counts.get("坦克", 0) + role_counts.get("战士", 0) > 0
+        has_support = role_counts.get("辅助", 0) > 0
+        has_magic = role_counts.get("法师", 0) > 0
+        has_marksman = role_counts.get("射手", 0) > 0
+
+        if team_size >= 4 and not has_frontline:
+            penalty += 6.0
+        if team_size >= 5:
+            if not has_support:
+                penalty += 4.0
+            if not has_magic:
+                penalty += 3.0
+            if not has_marksman:
+                penalty += 3.0
+
+        return penalty
+
     def get_current_phase_weights(self, total_picked_count):
         if total_picked_count < 4:
-            return {"meta": 1.2, "counter": 0.3, "synergy": 0.5}
+            return {"meta": 0.55, "counter": 0.15, "synergy": 0.30}
         elif total_picked_count < 7:
-            return {"meta": 0.5, "counter": 2.2, "synergy": 1.8}
+            return {"meta": 0.30, "counter": 0.40, "synergy": 0.30}
         else:
-            return {"meta": 0.1, "counter": 4.0, "synergy": 3.5}
+            return {"meta": 0.20, "counter": 0.50, "synergy": 0.30}
 
     # 🌟 接收新增的 good_at_ids 和 bad_at_ids
     def recommend(self, my_team_ids, enemy_team_ids, banned_ids, good_at_ids, bad_at_ids):
-        my_team_roles = set()
-        for hid in my_team_ids:
-            hero_roles = self.hero_map[str(hid)].get("roles", [])
-            for r in hero_roles:
-                my_team_roles.add(r)
+        # 按 role.json 推断已占分路：已占路不再推荐同路英雄
+        occupied_lanes = self.get_occupied_lanes(my_team_ids)
 
         recommendations = []
         unavailable_ids = set(my_team_ids + enemy_team_ids + banned_ids)
@@ -84,7 +251,12 @@ class BPEngine:
                 continue
                 
             hero_roles = set(hero.get("roles", []))
-            if not hero_roles or (hero_roles & my_team_roles):
+            if not hero_roles:
+                continue
+
+            hero_primary_role = self.get_primary_role(hero)
+            lane_options = self.get_hero_lane_options(hero)
+            if lane_options and all(lane in occupied_lanes for lane in lane_options):
                 continue
 
             m_score = self.get_meta_score_by_name(hero["name"])
@@ -103,26 +275,61 @@ class BPEngine:
             for ally_id in my_team_ids:
                 s_score += synergies.get(str(ally_id), 0)
                 
-            # 🌟 个人绝活赋分机制：擅长 +15分(跨阶跃升)，不擅长 -20分(打入冷宫)
+            # 个人偏好加权，避免绝活分过大导致结果失真
             personal_score = 0
             if hid in good_at_ids:
-                personal_score = 5
+                personal_score = 0.08
             elif hid in bad_at_ids:
-                personal_score = -10
+                personal_score = -0.15
+
+            composition_penalty = self.get_team_composition_penalty(my_team_ids, hero)
+
+            # 统一归一化：保留三维都参与，同时提高区分度
+            meta_norm = self.clamp((m_score - 5.0) / 15.0, -1.0, 1.0)
+            counter_norm = self.squash_score(c_score, 3.2)
+            synergy_norm = self.squash_score(s_score, 3.0)
+            composition_penalty_norm = self.clamp(composition_penalty / 15.0, 0.0, 1.0)
+
+            positive_factors = [v for v in [meta_norm, counter_norm, synergy_norm] if v > 0.35]
+            negative_factors = [v for v in [meta_norm, counter_norm, synergy_norm] if v < -0.3]
+
+            # 三项中至少两项同向优秀时给协同加成，避免“看起来都差不多”
+            synergy_bonus = 0.0
+            if len(positive_factors) >= 2:
+                synergy_bonus = 0.18 * (sum(positive_factors) / len(positive_factors))
+
+            # 若多项显著偏弱，则额外惩罚
+            conflict_penalty = 0.0
+            if len(negative_factors) >= 2:
+                conflict_penalty = 0.16 * (abs(sum(negative_factors)) / len(negative_factors))
                 
-            final_score = (m_score * weights["meta"]) + (c_score * weights["counter"]) + (s_score * weights["synergy"]) + personal_score
+            final_norm = (
+                meta_norm * weights["meta"]
+                + counter_norm * weights["counter"]
+                + synergy_norm * weights["synergy"]
+                + synergy_bonus
+                + personal_score
+                - composition_penalty_norm
+                - conflict_penalty
+            )
+
+            stretched_norm = self.signed_power_stretch(self.clamp(final_norm, -1.5, 1.5), 1.2)
+            final_score = self.clamp(58 + stretched_norm * 42, 18, 98)
                           
             recommendations.append({
                 "hero_id": hid,
                 "name": hero["name"],
                 "avatar_url": hero["avatar_url"],
-                "role": list(hero_roles)[0], 
+                "role": hero_primary_role,
                 "is_good_at": hid in good_at_ids,  # 传给前端打上特殊标记
                 "scores": {
                     "final": round(final_score, 2),
-                    "meta": round(m_score, 2), 
-                    "counter": round(c_score * weights["counter"], 2),
-                    "synergy": round(s_score * weights["synergy"], 2)
+                    "meta": round(meta_norm * 100, 2),
+                    "counter": round(counter_norm * 100, 2),
+                    "synergy": round(synergy_norm * 100, 2),
+                    "composition_penalty": round(composition_penalty, 2),
+                    "synergy_bonus": round(synergy_bonus * 100, 2),
+                    "conflict_penalty": round(conflict_penalty * 100, 2)
                 }
             })
             
