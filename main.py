@@ -88,6 +88,28 @@ class BPEngine:
             "女娲": 20, "镜": 20, "盾山": 20, "少司缘": 20, "蚩奼": 20
         }
 
+        # === 算法性能优化：预构建静态缓存（空间换时间），将嵌套寻址化为 O(1) 哈希查询 ===
+        self.precalc_primary_role = {}
+        self.precalc_lane_options = {}
+        self.precalc_meta_norm = {}
+        self.precalc_counters = {}
+        self.precalc_countered_by = {}
+        self.precalc_synergies = {}
+        
+        for h in self.heroes:
+            hid = str(h["hero_id"])
+            self.precalc_primary_role[hid] = self.get_primary_role(h)
+            self.precalc_lane_options[hid] = self.get_hero_lane_options(h)
+            
+            # 提前归一化强度分，保证手动填写的英雄梯度机制不变，但是寻址和数学计算加速
+            m_score = self.get_meta_score_by_name(h["name"])
+            self.precalc_meta_norm[hid] = self.clamp((m_score - 5.0) / 15.0, -1.0, 1.0)
+            
+            rels = h.get("relationships", {})
+            self.precalc_counters[hid] = rels.get("counters", {})
+            self.precalc_countered_by[hid] = rels.get("countered_by", {})
+            self.precalc_synergies[hid] = rels.get("synergies", {})
+
     def get_meta_score_by_name(self, hero_name):
         return self.tier_scores.get(hero_name, 5)
 
@@ -167,11 +189,7 @@ class BPEngine:
     def get_occupied_lanes(self, my_team_ids):
         occupied_lanes = set()
         for hid in my_team_ids:
-            hero = self.hero_map.get(str(hid))
-            if not hero:
-                continue
-
-            options = self.get_hero_lane_options(hero)
+            options = self.precalc_lane_options.get(str(hid))
             if not options:
                 continue
 
@@ -189,15 +207,12 @@ class BPEngine:
         return occupied_lanes
 
     def get_team_composition_penalty(self, my_team_ids, candidate_hero):
-        # 根据补位后阵容结构进行惩罚，让“随便拼”更难拿高分
-        team_heroes = []
-        for hid in my_team_ids:
-            h = self.hero_map.get(str(hid))
-            if h:
-                team_heroes.append(h)
-        team_heroes.append(candidate_hero)
-
-        primary_roles = [self.get_primary_role(h) for h in team_heroes if self.get_primary_role(h)]
+        # 优化：不生成多余的实例列表，直接累加预计算的主职业
+        candidate_hid = str(candidate_hero["hero_id"])
+        primary_roles = [self.precalc_primary_role.get(str(hid)) for hid in my_team_ids]
+        primary_roles.append(self.precalc_primary_role.get(candidate_hid))
+        primary_roles = [r for r in primary_roles if r]
+        
         role_counts = {}
         for role in primary_roles:
             role_counts[role] = role_counts.get(role, 0) + 1
@@ -209,7 +224,7 @@ class BPEngine:
             if count > 1:
                 penalty += (count - 1) * 4.0
 
-        team_size = len(team_heroes)
+        team_size = len(primary_roles)
         has_frontline = role_counts.get("坦克", 0) + role_counts.get("战士", 0) > 0
         has_support = role_counts.get("辅助", 0) > 0
         has_magic = role_counts.get("法师", 0) > 0
@@ -250,28 +265,27 @@ class BPEngine:
             if hid in unavailable_ids:
                 continue
                 
-            hero_roles = set(hero.get("roles", []))
-            if not hero_roles:
+            # 缓存优化读取
+            hero_primary_role = self.precalc_primary_role.get(hid)
+            if not hero_primary_role:
                 continue
 
-            hero_primary_role = self.get_primary_role(hero)
-            lane_options = self.get_hero_lane_options(hero)
+            lane_options = self.precalc_lane_options.get(hid, [])
             if lane_options and all(lane in occupied_lanes for lane in lane_options):
                 continue
-
-            m_score = self.get_meta_score_by_name(hero["name"])
+            
+            # 使用预计算的结果衡量基础胜率强度，完全忠于您设定的 tier_scores 梯度排行
+            meta_norm = self.precalc_meta_norm[hid]
             
             c_score = 0
-            relationships = hero.get("relationships", {})
-            counters = relationships.get("counters", {})
-            countered_by = relationships.get("countered_by", {})
-            
+            counters = self.precalc_counters[hid]
+            countered_by = self.precalc_countered_by[hid]
             for enemy_id in enemy_team_ids:
                 c_score += counters.get(str(enemy_id), 0)
                 c_score -= countered_by.get(str(enemy_id), 0)
                 
             s_score = 0
-            synergies = relationships.get("synergies", {})
+            synergies = self.precalc_synergies[hid]
             for ally_id in my_team_ids:
                 s_score += synergies.get(str(ally_id), 0)
                 
@@ -285,7 +299,6 @@ class BPEngine:
             composition_penalty = self.get_team_composition_penalty(my_team_ids, hero)
 
             # 统一归一化：保留三维都参与，同时提高区分度
-            meta_norm = self.clamp((m_score - 5.0) / 15.0, -1.0, 1.0)
             counter_norm = self.squash_score(c_score, 3.2)
             synergy_norm = self.squash_score(s_score, 3.0)
             composition_penalty_norm = self.clamp(composition_penalty / 15.0, 0.0, 1.0)

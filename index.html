@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 
     <style>
-        /* 🌟 黑金流光背景动画 */
+        /* 🌟 高级流光背景动画（深邃星云感） */
         @keyframes gradientFlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -17,106 +17,134 @@
         }
         body { 
             margin: 0;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            color: #fef08a; /* 默认字体变为淡金色 */
-            background: linear-gradient(-45deg, #0a0a0a, #1f1800, #000000, #2b2000, #050505);
-            background-size: 400% 400%;
-            animation: gradientFlow 15s ease infinite;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: #fef08a;
+            background: radial-gradient(circle at 50% 10%, #1e1b0b, #090909 60%, #000 100%), linear-gradient(-45deg, #0f0a00, #171200, #050505);
+            background-size: 200% 200%;
+            animation: gradientFlow 20s ease infinite;
         }
 
-        /* 🌟 毛玻璃质感面板 */
+        /* 🌟 极致毛玻璃质感面板 */
         .glass-panel {
-            background: rgba(10, 10, 10, 0.65);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(234, 179, 8, 0.15);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+            background: linear-gradient(135deg, rgba(20,20,20,0.85) 0%, rgba(10,10,10,0.95) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(250, 204, 21, 0.15);
+            box-shadow: 
+                0 4px 24px -1px rgba(0, 0, 0, 0.9),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                inset 0 0 20px rgba(250, 204, 21, 0.02);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .glass-panel:hover {
+            border-color: rgba(250, 204, 21, 0.35);
+            box-shadow: 
+                0 8px 32px 0 rgba(0, 0, 0, 0.95),
+                0 0 15px rgba(202, 138, 4, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
-        /* 🌟 渐变鎏金文字 */
+        /* 🌟 臻金流光渐变文字 */
         .text-gold-gradient {
-            background: linear-gradient(to right, #fde047, #eab308, #a16207);
+            background: linear-gradient(to right, #fef08a 0%, #facc15 50%, #ca8a04 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(202, 138, 4, 0.2);
         }
 
-        /* 英雄头像与状态框优化 */
-        .hero-avatar { transition: all 0.3s ease; }
-        .hero-avatar:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(234, 179, 8, 0.5); z-index: 10; border-color: #eab308; }
-        .selected-hero { border: 2px solid #eab308; transform: scale(1.05); box-shadow: 0 0 20px rgba(234, 179, 8, 0.8); }
-        .disabled-hero { filter: grayscale(100%) brightness(40%); pointer-events: none; }
+        /* 英雄头像与状态框超燃动效 */
+        .hero-avatar { 
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); 
+            transform-origin: center bottom;
+        }
+        .hero-avatar:hover { 
+            transform: scale(1.08) translateY(-4px); 
+            box-shadow: 0 10px 25px rgba(234, 179, 8, 0.4), 0 0 10px rgba(250, 204, 21, 0.6); 
+            z-index: 20; 
+            border-color: #facc15; 
+        }
+        .selected-hero { 
+            border: 2px solid #facc15; 
+            transform: scale(1.08); 
+            box-shadow: 0 0 30px rgba(234, 179, 8, 0.9), inset 0 0 15px rgba(250, 204, 21, 0.5); 
+        }
+        .disabled-hero { filter: grayscale(100%) brightness(30%); pointer-events: none; opacity: 0.6; }
         
-        /* 黑金风格滚动条 */
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 8px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.6); border-radius: 8px; margin: 0 4px; border: 1px solid rgba(234,179,8,0.1); }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #ca8a04, #713f12); border-radius: 8px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #facc15, #a16207); }
+        /* 定制黑金滚动条 */
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.4); border-radius: 8px; margin: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #a16207, #713f12); border-radius: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #eab308, #ca8a04); }
         
         .fade-enter-active, .fade-leave-active { transition: opacity 0.5s ease; }
         .fade-enter-from, .fade-leave-to { opacity: 0; }
 
         @keyframes pickPulseBlue {
-            0%, 100% { border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 0 0 rgba(59, 130, 246, 0); }
-            50% { border-color: rgba(59, 130, 246, 0.8); box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+            0%, 100% { border-color: rgba(59, 130, 246, 0.2); box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
+            50% { border-color: rgba(96, 165, 250, 0.9); box-shadow: 0 0 25px rgba(59, 130, 246, 0.6), inset 0 0 30px rgba(37, 99, 235, 0.3); }
         }
         @keyframes pickPulseRed {
-            0%, 100% { border-color: rgba(239, 68, 68, 0.3); box-shadow: 0 0 0 rgba(239, 68, 68, 0); }
-            50% { border-color: rgba(239, 68, 68, 0.8); box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
+            0%, 100% { border-color: rgba(239, 68, 68, 0.2); box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
+            50% { border-color: rgba(248, 113, 113, 0.9); box-shadow: 0 0 25px rgba(239, 68, 68, 0.6), inset 0 0 30px rgba(220, 38, 38, 0.3); }
         }
-        .pick-active-blue { animation: pickPulseBlue 1.5s ease-in-out infinite; }
-        .pick-active-red { animation: pickPulseRed 1.5s ease-in-out infinite; }
-        
-        /* 下拉菜单金边黑底美化 */
+        .pick-active-blue { animation: pickPulseBlue 1.8s ease-in-out infinite; }
+        .pick-active-red { animation: pickPulseRed 1.8s ease-in-out infinite; }
+
+        /* 分路下拉菜单黑金美化 */
         select.lane-select {
             appearance: none;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fde047' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat; background-position: right 4px center; background-size: 14px; padding-right: 20px;
-            background-color: rgba(0,0,0,0.85); border: 1px solid #ca8a04; color: #fde047;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.9);
+            border: 1px solid rgba(250, 204, 21, 0.4);
+            color: #fde047;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            text-shadow: 0 0 5px rgba(250, 204, 21, 0.3);
         }
-
+        select.lane-select option {
+            background-color: #000;
+            color: #fde047;
+        }
+        
         /* 胶囊切换滑块 */
         .capsule-switch {
             position: relative;
             display: inline-flex;
-            background: rgba(0,0,0,0.6);
-            border: 1px solid rgba(234,179,8,0.2);
+            background: rgba(0,0,0,0.8);
+            border: 1px solid rgba(234,179,8,0.3);
             border-radius: 9999px;
-            padding: 2px;
+            padding: 3px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
         }
         .capsule-switch .capsule-slider {
             position: absolute;
-            top: 2px;
-            bottom: 2px;
+            top: 3px;
+            bottom: 3px;
             border-radius: 9999px;
-            transition: left 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s ease;
+            transition: left 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.4s ease;
             z-index: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
-        .capsule-switch button {
-            position: relative;
-            z-index: 1;
-        }
+        .capsule-switch button { position: relative; z-index: 1; letter-spacing: 1px; }
 
         /* Ban斜线动画 */
         @keyframes banSlash {
             0% { transform: rotate(45deg) scaleX(0); opacity: 0; }
-            50% { opacity: 1; }
+            40% { opacity: 1; transform: rotate(45deg) scaleX(1.1); }
             100% { transform: rotate(45deg) scaleX(1); opacity: 1; }
         }
-        .ban-slash-line {
-            transform: rotate(45deg) scaleX(0);
-            animation: banSlash 0.4s ease-out forwards;
-        }
+        .ban-slash-line { transform: rotate(45deg) scaleX(0); animation: banSlash 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
-        /* 模态窗口动画 */
-        .modal-backdrop-enter { animation: modalBgIn 0.3s ease forwards; }
-        .modal-backdrop-leave { animation: modalBgOut 0.25s ease forwards; }
-        @keyframes modalBgIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes modalBgOut { from { opacity: 1; } to { opacity: 0; } }
-        .modal-content-enter { animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-        .modal-content-leave { animation: modalOut 0.2s ease forwards; }
-        @keyframes modalIn { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-        @keyframes modalOut { from { opacity: 1; transform: scale(1) translateY(0); } to { opacity: 0; transform: scale(0.95) translateY(10px); } }
+        /* 模态窗口阻尼动效 */
+        .modal-backdrop-enter { animation: modalBgIn 0.4s ease forwards; }
+        .modal-backdrop-leave { animation: modalBgOut 0.3s ease forwards; }
+        @keyframes modalBgIn { from { opacity: 0; backdrop-filter: blur(0px); } to { opacity: 1; backdrop-filter: blur(12px); } }
+        @keyframes modalBgOut { from { opacity: 1; backdrop-filter: blur(12px); } to { opacity: 0; backdrop-filter: blur(0px); } }
+        .modal-content-enter { animation: modalIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .modal-content-leave { animation: modalOut 0.3s cubic-bezier(0.7, 0, 0.84, 0) forwards; }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.92) translateY(30px) rotateX(10deg); } to { opacity: 1; transform: scale(1) translateY(0) rotateX(0); } }
+        @keyframes modalOut { from { opacity: 1; transform: scale(1) translateY(0); } to { opacity: 0; transform: scale(0.95) translateY(20px); } }
     </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans relative">
@@ -639,7 +667,7 @@
                     redOverallScore.value = calcOverall(redData, redTeamQuality, redLanePressure);
 
                     const commonOption = {
-                        tooltip: { backgroundColor: 'rgba(0,0,0,0.8)', borderColor: goldColor, textStyle: { color: '#fff' } },
+                        tooltip: { backgroundColor: 'rgba(0,0,0,0.85)', borderColor: goldColor, borderWidth: 2, padding: 12, textStyle: { color: '#fff', fontSize: 13, fontWeight: 'bold' } },
                         radar: {
                             indicator: [
                                 { name: '爆发', max: 100 },
@@ -648,13 +676,13 @@
                                 { name: '控制', max: 100 },
                                 { name: '机动', max: 100 }
                             ],
-                            radius: '65%',
+                            radius: '68%',
                             center: ['50%', '50%'],
-                            splitNumber: 4,
-                            axisName: { color: axisNameColor, fontSize: 13, fontWeight: 'bold', fontFamily: 'sans-serif' },
-                            splitArea: { areaStyle: { color: ['rgba(0, 0, 0, 0)', 'rgba(234, 179, 8, 0.02)', 'rgba(0, 0, 0, 0)', 'rgba(234, 179, 8, 0.05)'] } },
-                            axisLine: { lineStyle: { color: bgSplitColor } },
-                            splitLine: { lineStyle: { color: bgSplitColor, width: 1.5 } }
+                            splitNumber: 5,
+                            axisName: { color: axisNameColor, fontSize: 13, fontWeight: '900', fontFamily: 'Inter, sans-serif', textShadowColor: 'rgba(250, 204, 21, 0.5)', textShadowBlur: 8 },
+                            splitArea: { areaStyle: { color: ['rgba(0, 0, 0, 0.4)', 'rgba(234, 179, 8, 0.05)', 'rgba(0, 0, 0, 0.4)', 'rgba(234, 179, 8, 0.08)', 'rgba(0,0,0,0.2)'] } },
+                            axisLine: { lineStyle: { color: bgSplitColor, width: 2 } },
+                            splitLine: { lineStyle: { color: 'rgba(234, 179, 8, 0.25)', width: 1.5, type: 'dashed' } }
                         }
                     };
 
@@ -662,7 +690,13 @@
                         ...commonOption,
                         series: [{
                             type: 'radar',
-                            data: [{ value: blueData, name: '蓝色方维系属性', itemStyle: { color: '#60a5fa' }, areaStyle: { color: 'rgba(59, 130, 246, 0.3)' }, lineStyle: { width: 2, color: '#3b82f6' } }]
+                            data: [{ 
+                                value: blueData, 
+                                name: '蓝色方维系属性', 
+                                itemStyle: { color: '#60a5fa', borderColor: '#fff', borderWidth: 2, shadowColor: 'rgba(59, 130, 246, 0.8)', shadowBlur: 10 }, 
+                                areaStyle: { color: new echarts.graphic.RadialGradient(0.5, 0.5, 1, [{offset: 0, color: 'rgba(59, 130, 246, 0.1)'}, {offset: 1, color: 'rgba(59, 130, 246, 0.6)'}]) }, 
+                                lineStyle: { width: 3, color: '#3b82f6', shadowColor: 'rgba(59, 130, 246, 0.9)', shadowBlur: 12 } 
+                            }]
                         }]
                     });
 
@@ -670,7 +704,13 @@
                         ...commonOption,
                         series: [{
                             type: 'radar',
-                            data: [{ value: redData, name: '红色方维系属性', itemStyle: { color: '#f87171' }, areaStyle: { color: 'rgba(239, 68, 68, 0.3)' }, lineStyle: { width: 2, color: '#ef4444' } }]
+                            data: [{ 
+                                value: redData, 
+                                name: '红色方维系属性', 
+                                itemStyle: { color: '#f87171', borderColor: '#fff', borderWidth: 2, shadowColor: 'rgba(239, 68, 68, 0.8)', shadowBlur: 10 }, 
+                                areaStyle: { color: new echarts.graphic.RadialGradient(0.5, 0.5, 1, [{offset: 0, color: 'rgba(239, 68, 68, 0.1)'}, {offset: 1, color: 'rgba(239, 68, 68, 0.6)'}]) }, 
+                                lineStyle: { width: 3, color: '#ef4444', shadowColor: 'rgba(239, 68, 68, 0.9)', shadowBlur: 12 } 
+                            }]
                         }]
                     });
                 };
