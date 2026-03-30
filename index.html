@@ -182,9 +182,18 @@
                     </button>
                 </div>
             </div>
-            <button @click="showPrefModal = true" class="absolute right-4 top-2 glass-panel hover:bg-black/80 hover:border-yellow-400 px-5 py-2.5 rounded-xl font-bold transition-all text-yellow-500 hover:text-yellow-300 flex items-center gap-2">
-                <span class="text-xl">⚙️</span> 战术偏好设定
-            </button>
+            <div class="mt-2 text-xs font-bold tracking-[0.3em] uppercase text-yellow-700">
+                当前模式
+                <span class="ml-2 text-yellow-300 tracking-[0.16em]">{{ currentBpModeName }}</span>
+            </div>
+            <div class="absolute right-4 top-2 flex items-center gap-2">
+                <button @click="openModeModal" class="glass-panel hover:bg-black/80 hover:border-yellow-400 px-5 py-2.5 rounded-xl font-bold transition-all text-cyan-400 hover:text-cyan-200 flex items-center gap-2">
+                    <span class="text-lg">♟️</span> BP 模式
+                </button>
+                <button @click="showPrefModal = true" class="glass-panel hover:bg-black/80 hover:border-yellow-400 px-5 py-2.5 rounded-xl font-bold transition-all text-yellow-500 hover:text-yellow-300 flex items-center gap-2">
+                    <span class="text-xl">⚙️</span> 战术偏好设定
+                </button>
+            </div>
         </header>
 
         <main class="flex-1 flex gap-5 overflow-hidden z-10 relative">
@@ -202,7 +211,7 @@
                 <div class="flex-1 flex flex-col gap-3">
                     <div v-for="i in 5" :key="'bp'+i"
                          :class="['flex-1 bg-black/40 border rounded-xl overflow-hidden flex items-center justify-center relative shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]',
-                                  activePickSlot.team === 'blue' && activePickSlot.index === i-1 && !bluePicks[i-1] ? 'pick-active-blue border-blue-500/50' : 'border-yellow-900/30']">
+                                  isPickSlotActive('blue', i-1) && !bluePicks[i-1] ? 'pick-active-blue border-blue-500/50' : 'border-yellow-900/30']">
                         <template v-if="bluePicks[i-1]">
                             <select v-model="bluePicks[i-1].lane" class="lane-select absolute top-1.5 left-1.5 z-10 text-[11px] font-bold rounded px-1.5 py-0.5 outline-none cursor-pointer transition-colors">
                                 <option v-for="l in lanes" :value="l">{{ l }}</option>
@@ -344,21 +353,33 @@
                 <div v-if="!isGameOver" class="mt-5 pt-5 border-t border-yellow-900/30 flex justify-between items-center h-24 flex-shrink-0 bg-black/20 rounded-xl px-4">
                     <div class="flex items-center gap-3">
                         <template v-if="currentPhase?.action === 'ban'">
-                            <div v-for="idx in 5" :key="'ban-slot-'+idx" class="w-14 h-14 rounded-full border-2 overflow-hidden flex items-center justify-center shadow-inner"
+                            <div v-for="idx in currentSelectionLimit" :key="'ban-slot-'+idx" class="w-14 h-14 rounded-full border-2 overflow-hidden flex items-center justify-center shadow-inner"
                                  :class="activeHeroes[idx-1] ? 'border-red-600/80 shadow-[0_0_15px_rgba(220,38,38,0.4)]' : 'border-yellow-900/40 bg-black/60'">
                                 <img v-if="activeHeroes[idx-1]" :src="activeHeroes[idx-1].avatar_url" class="w-full h-full object-cover">
                                 <span v-else class="text-yellow-800/50 font-bold text-xs">{{ idx }}</span>
                             </div>
                         </template>
                         <template v-else>
-                            <img v-if="activeHeroes.length > 0" :src="activeHeroes[0].avatar_url" class="w-16 h-16 rounded-xl border-2 border-yellow-500 shadow-[0_0_15px_rgba(234,179,8,0.5)]">
-                            <div v-if="activeHeroes.length > 0" class="ml-3">
-                                <h3 class="text-2xl font-black text-yellow-100 flex items-center gap-2 tracking-wide">
-                                    {{ activeHeroes[0].name }}
-                                    <span v-if="goodAtIds.includes(activeHeroes[0].hero_id.toString())" class="text-[10px] bg-red-600/90 text-white px-2 py-0.5 rounded-sm border border-red-400">SIGNATURE</span>
-                                </h3>
-                                <p class="text-xs text-yellow-600 font-bold mt-1 uppercase tracking-widest">{{ activeHeroes[0].roles.join(' · ') }}</p>
-                            </div>
+                            <template v-if="currentSelectionLimit === 1">
+                                <img v-if="activeHeroes.length > 0" :src="activeHeroes[0].avatar_url" class="w-16 h-16 rounded-xl border-2 border-yellow-500 shadow-[0_0_15px_rgba(234,179,8,0.5)]">
+                                <div v-if="activeHeroes.length > 0" class="ml-3">
+                                    <h3 class="text-2xl font-black text-yellow-100 flex items-center gap-2 tracking-wide">
+                                        {{ activeHeroes[0].name }}
+                                        <span v-if="goodAtIds.includes(activeHeroes[0].hero_id.toString())" class="text-[10px] bg-red-600/90 text-white px-2 py-0.5 rounded-sm border border-red-400">SIGNATURE</span>
+                                    </h3>
+                                    <p class="text-xs text-yellow-600 font-bold mt-1 uppercase tracking-widest">{{ activeHeroes[0].roles.join(' · ') }}</p>
+                                </div>
+                            </template>
+                            <template v-else>
+                                <div v-for="idx in currentSelectionLimit" :key="'pick-slot-'+idx"
+                                     class="w-16 h-16 rounded-xl border-2 overflow-hidden flex items-center justify-center shadow-inner relative"
+                                     :class="activeHeroes[idx-1] ? 'border-yellow-500 shadow-[0_0_15px_rgba(234,179,8,0.35)]' : 'border-yellow-900/40 bg-black/60'">
+                                    <img v-if="activeHeroes[idx-1]" :src="getSplashUrl(activeHeroes[idx-1].hero_id)" class="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-90">
+                                    <div v-if="activeHeroes[idx-1]" class="absolute inset-0 bg-gradient-to-t from-black via-black/65 to-transparent"></div>
+                                    <span v-if="activeHeroes[idx-1]" class="relative px-1 text-[10px] font-bold text-yellow-100 text-center leading-tight">{{ activeHeroes[idx-1].name }}</span>
+                                    <span v-else class="text-yellow-800/50 font-bold text-xs">Pick {{ idx }}</span>
+                                </div>
+                            </template>
                         </template>
                     </div>
                     
@@ -384,7 +405,7 @@
                 <div class="flex-1 flex flex-col gap-3">
                     <div v-for="i in 5" :key="'rp'+i"
                          :class="['flex-1 bg-black/40 border rounded-xl overflow-hidden flex items-center justify-center relative shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]',
-                                  activePickSlot.team === 'red' && activePickSlot.index === i-1 && !redPicks[i-1] ? 'pick-active-red border-red-500/50' : 'border-yellow-900/30']">
+                                  isPickSlotActive('red', i-1) && !redPicks[i-1] ? 'pick-active-red border-red-500/50' : 'border-yellow-900/30']">
                         <template v-if="redPicks[i-1]">
                             <select v-model="redPicks[i-1].lane" class="lane-select absolute top-1.5 right-1.5 z-10 text-[11px] font-bold rounded px-1.5 py-0.5 outline-none cursor-pointer transition-colors">
                                 <option v-for="l in lanes" :value="l">{{ l }}</option>
@@ -398,6 +419,49 @@
             </aside>
             
         </main>
+
+        <div v-if="showModeModal" class="fixed inset-0 z-[60] bg-black/90 flex items-center justify-center p-4 backdrop-blur-md"
+             :class="modeModalClosing ? 'modal-backdrop-leave' : 'modal-backdrop-enter'">
+            <div class="bg-gray-900 rounded-3xl w-full max-w-5xl border border-cyan-700/40 shadow-[0_0_50px_rgba(34,211,238,0.14)] relative overflow-hidden"
+                 :class="modeModalClosing ? 'modal-content-leave' : 'modal-content-enter'">
+                <div class="absolute top-0 w-full h-2 bg-gradient-to-r from-cyan-700 via-cyan-300 to-cyan-700"></div>
+                <div class="p-8 border-b border-gray-800 flex justify-between items-center bg-black/40">
+                    <div>
+                        <h2 class="text-3xl font-black text-cyan-100 uppercase tracking-widest">选择 BP 模式</h2>
+                        <p class="text-gray-400 text-sm mt-2 font-bold tracking-wide">进入系统前先确认本局使用的 Ban/Pick 规则，后续也可以随时切换。</p>
+                    </div>
+                    <button v-if="currentBpModeKey" @click="closeModeModal" class="text-gray-600 hover:text-cyan-300 text-4xl transition-colors">&times;</button>
+                </div>
+                <div class="p-8 bg-black/20">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <button v-for="mode in bpModes" :key="mode.key"
+                                @click="chooseBpMode(mode.key)"
+                                :class="['text-left rounded-3xl border p-6 transition-all duration-300 group relative overflow-hidden',
+                                         mode.key === currentBpModeKey ? 'border-cyan-400 bg-cyan-500/10 shadow-[0_0_25px_rgba(34,211,238,0.18)]' : 'border-gray-800 bg-black/40 hover:border-cyan-500/60 hover:-translate-y-1']">
+                            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-br from-cyan-500/10 via-transparent to-yellow-500/10"></div>
+                            <div class="relative">
+                                <div class="flex items-center justify-between gap-3">
+                                    <h3 class="text-2xl font-black text-white tracking-wide">{{ mode.name }}</h3>
+                                    <span v-if="mode.key === currentBpModeKey" class="px-3 py-1 rounded-full text-[11px] font-black tracking-[0.2em] uppercase bg-cyan-500/20 text-cyan-200 border border-cyan-400/40">当前模式</span>
+                                </div>
+                                <p class="mt-4 text-sm text-gray-300 leading-7 font-medium">{{ mode.description }}</p>
+                                <div class="mt-5 rounded-2xl border border-gray-800/80 bg-black/55 p-4">
+                                    <div class="text-[11px] font-black tracking-[0.25em] uppercase text-cyan-400">流程摘要</div>
+                                    <p class="mt-2 text-sm text-gray-400 leading-7">{{ mode.summary }}</p>
+                                </div>
+                                <div class="mt-5 text-sm font-black tracking-[0.2em] uppercase"
+                                     :class="mode.key === currentBpModeKey ? 'text-cyan-300' : 'text-yellow-500 group-hover:text-cyan-300'">
+                                    {{ mode.key === currentBpModeKey ? '继续使用该模式' : '使用该模式进入系统' }}
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                    <div v-if="hasDraftProgress" class="mt-6 rounded-2xl border border-red-900/50 bg-red-950/20 px-5 py-4 text-sm font-bold text-red-300">
+                        切换 BP 模式会清空当前 Ban/Pick 进度并重新开始。
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div v-if="showPrefModal" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 backdrop-blur-md"
              :class="prefModalClosing ? 'modal-backdrop-leave' : 'modal-backdrop-enter'">
@@ -488,21 +552,87 @@
                 const isBackendSameOrigin = window.location.port === '8000';
                 const API_BASE = (isLocalHost && !isBackendSameOrigin) ? 'http://127.0.0.1:8000' : '';
 
-                const bpSequence = [
-                    { action: 'ban', team: 'blue', text: 'BLUE TEAM 盲禁序列 (0~5)' },
-                    { action: 'ban', team: 'red', text: 'RED TEAM 盲禁序列 (0~5)' },
-                    { action: 'pick', team: 'blue', text: 'BLUE TEAM 第 1 手抉择' },
-                    { action: 'pick', team: 'red', text: 'RED TEAM 第 2 手抉择' },
-                    { action: 'pick', team: 'red', text: 'RED TEAM 第 3 手抉择' },
-                    { action: 'pick', team: 'blue', text: 'BLUE TEAM 第 4 手抉择' },
-                    { action: 'pick', team: 'blue', text: 'BLUE TEAM 第 5 手抉择' },
-                    { action: 'pick', team: 'red', text: 'RED TEAM 第 6 手抉择' },
-                    { action: 'pick', team: 'red', text: 'RED TEAM 第 7 手抉择' },
-                    { action: 'pick', team: 'blue', text: 'BLUE TEAM 第 8 手抉择' },
-                    { action: 'pick', team: 'blue', text: 'BLUE TEAM 第 9 手抉择' }, 
-                    { action: 'pick', team: 'red', text: 'RED TEAM 终端反制位 (Counter)' }
+                const bpModes = [
+                    {
+                        key: 'classic_blind',
+                        name: '普通征召',
+                        description: '保留当前系统的老流程：双方分别一次性 Ban 5 名英雄，然后按既有顺序完成 10 手选人。',
+                        summary: '蓝方盲 Ban 5 -> 红方盲 Ban 5 -> 蓝 1 -> 红 2/3 -> 蓝 4/5 -> 红 6/7 -> 蓝 8/9 -> 红 10。',
+                        steps: [
+                            { action: 'ban', team: 'blue', count: 5, text: '经典模式 · 蓝方盲 Ban 1-5', blindBan: true, allowPartial: true },
+                            { action: 'ban', team: 'red', count: 5, text: '经典模式 · 红方盲 Ban 1-5', blindBan: true, allowPartial: true },
+                            { action: 'pick', team: 'blue', count: 1, text: '经典模式 · 蓝方第 1 选' },
+                            { action: 'pick', team: 'red', count: 1, text: '经典模式 · 红方第 1 选' },
+                            { action: 'pick', team: 'red', count: 1, text: '经典模式 · 红方第 2 选' },
+                            { action: 'pick', team: 'blue', count: 1, text: '经典模式 · 蓝方第 2 选' },
+                            { action: 'pick', team: 'blue', count: 1, text: '经典模式 · 蓝方第 3 选' },
+                            { action: 'pick', team: 'red', count: 1, text: '经典模式 · 红方第 3 选' },
+                            { action: 'pick', team: 'red', count: 1, text: '经典模式 · 红方第 4 选' },
+                            { action: 'pick', team: 'blue', count: 1, text: '经典模式 · 蓝方第 4 选' },
+                            { action: 'pick', team: 'blue', count: 1, text: '经典模式 · 蓝方第 5 选' },
+                            { action: 'pick', team: 'red', count: 1, text: '经典模式 · 红方第 5 选' }
+                        ]
+                    },
+                    {
+                        key: 'tournament_rounds',
+                        name: '巅峰万强',
+                        description: '按真实对局的两轮 Ban/Pick 流程执行，支持 1 Ban、2 Ban、1 Pick、2 Pick 的组合回合。',
+                        summary: '第一轮：蓝 1 Ban -> 红 1 Ban -> 蓝 2/3 Ban -> 红 2/3 Ban -> 蓝 1 Pick -> 红 1/2 Pick -> 蓝 2/3 Pick -> 红 3 Pick；第二轮：蓝 4 Ban -> 红 4/5 Ban -> 蓝 5 Ban -> 红 4 Pick -> 蓝 4/5 Pick -> 红 5 Pick。',
+                        steps: [
+                            { action: 'ban', team: 'blue', count: 1, text: '第一轮 · 蓝方 Ban 1' },
+                            { action: 'ban', team: 'red', count: 1, text: '第一轮 · 红方 Ban 1' },
+                            { action: 'ban', team: 'blue', count: 2, text: '第一轮 · 蓝方 Ban 2-3' },
+                            { action: 'ban', team: 'red', count: 2, text: '第一轮 · 红方 Ban 2-3' },
+                            { action: 'pick', team: 'blue', count: 1, text: '第一轮 · 蓝方 Pick 1' },
+                            { action: 'pick', team: 'red', count: 2, text: '第一轮 · 红方 Pick 1-2' },
+                            { action: 'pick', team: 'blue', count: 2, text: '第一轮 · 蓝方 Pick 2-3' },
+                            { action: 'pick', team: 'red', count: 1, text: '第一轮 · 红方 Pick 3' },
+                            { action: 'ban', team: 'blue', count: 1, text: '第二轮 · 蓝方 Ban 4' },
+                            { action: 'ban', team: 'red', count: 2, text: '第二轮 · 红方 Ban 4-5' },
+                            { action: 'ban', team: 'blue', count: 1, text: '第二轮 · 蓝方 Ban 5' },
+                            { action: 'pick', team: 'red', count: 1, text: '第二轮 · 红方 Pick 4' },
+                            { action: 'pick', team: 'blue', count: 2, text: '第二轮 · 蓝方 Pick 4-5' },
+                            { action: 'pick', team: 'red', count: 1, text: '第二轮 · 红方 Pick 5' }
+                        ]
+                    }
                 ];
-                const stepIndex = ref(0); 
+                const currentBpModeKey = ref(null);
+                const showModeModal = ref(true);
+                const modeModalClosing = ref(false);
+                const stepIndex = ref(0);
+
+                const currentBpMode = computed(() => {
+                    return bpModes.find(mode => mode.key === currentBpModeKey.value) || null;
+                });
+                const bpSequence = computed(() => currentBpMode.value?.steps || []);
+                const currentBpModeName = computed(() => currentBpMode.value?.name || '待选择');
+                const hasDraftProgress = computed(() => {
+                    return stepIndex.value > 0
+                        || blueBans.value.length > 0
+                        || redBans.value.length > 0
+                        || bluePicks.value.length > 0
+                        || redPicks.value.length > 0;
+                });
+
+                const resetDraftState = () => {
+                    blueBans.value = [];
+                    redBans.value = [];
+                    bluePicks.value = [];
+                    redPicks.value = [];
+                    activeHeroes.value = [];
+                    recommendations.value = [];
+                    stepIndex.value = 0;
+                    blueOverallScore.value = 0;
+                    redOverallScore.value = 0;
+                    if (blueChart) {
+                        blueChart.dispose();
+                        blueChart = null;
+                    }
+                    if (redChart) {
+                        redChart.dispose();
+                        redChart = null;
+                    }
+                };
 
                 onMounted(async () => {
                     try {
@@ -526,8 +656,6 @@
                         goodAtIds.value = parsed.goodAt || [];
                         badAtIds.value = parsed.badAt || [];
                         hasSavedPrefs.value = true;
-                    } else {
-                        showPrefModal.value = true;
                     }
                 });
 
@@ -545,6 +673,41 @@
                     
                     if (availableLanes.includes(pref)) return pref;
                     return availableLanes[0] || pref; 
+                };
+
+                const openModeModal = () => {
+                    showModeModal.value = true;
+                    modeModalClosing.value = false;
+                };
+
+                const closeModeModal = () => {
+                    if (!currentBpModeKey.value) return;
+                    modeModalClosing.value = true;
+                    setTimeout(() => {
+                        showModeModal.value = false;
+                        modeModalClosing.value = false;
+                    }, 250);
+                };
+
+                const chooseBpMode = (modeKey) => {
+                    const isSameMode = modeKey === currentBpModeKey.value;
+                    if (!isSameMode) {
+                        currentBpModeKey.value = modeKey;
+                        resetDraftState();
+                    } else if (!currentBpModeKey.value) {
+                        currentBpModeKey.value = modeKey;
+                    }
+
+                    modeModalClosing.value = true;
+                    setTimeout(() => {
+                        showModeModal.value = false;
+                        modeModalClosing.value = false;
+                        if (!hasSavedPrefs.value) {
+                            showPrefModal.value = true;
+                        } else {
+                            fetchRecommendations();
+                        }
+                    }, 250);
                 };
 
                 const matchupPairs = computed(() => {
@@ -715,7 +878,10 @@
                     });
                 };
 
-                const isGameOver = computed(() => stepIndex.value >= bpSequence.length);
+                const isGameOver = computed(() => {
+                    if (!currentBpMode.value) return false;
+                    return stepIndex.value >= bpSequence.value.length;
+                });
                 watch(isGameOver, (newVal) => {
                     if (newVal) {
                         nextTick(() => { setTimeout(() => { initRadarChart(); }, 150); });
@@ -723,7 +889,13 @@
                 });
 
                 watch(() => mySide.value, () => {
-                    if (!isGameOver.value && bpSequence[stepIndex.value]?.action === 'pick') {
+                    if (!showModeModal.value && !isGameOver.value && currentPhase.value?.action === 'pick') {
+                        fetchRecommendations();
+                    }
+                });
+
+                watch(() => activeHeroes.value.map(hero => hero.hero_id).join(','), () => {
+                    if (!showModeModal.value && !isGameOver.value && currentPhase.value?.action === 'pick' && currentSelectionLimit.value > 1) {
                         fetchRecommendations();
                     }
                 });
@@ -760,19 +932,24 @@
                     if (stepIndex.value > 1 && !isGameOver.value) fetchRecommendations();
                 };
 
-                const currentPhase = computed(() => bpSequence[stepIndex.value] || null);
-                const currentPhaseText = computed(() => currentPhase.value ? currentPhase.value.text : '分析已完成 (OVER)');
+                const currentPhase = computed(() => currentBpMode.value ? (bpSequence.value[stepIndex.value] || null) : null);
+                const currentSelectionLimit = computed(() => currentPhase.value?.count || 0);
+                const currentPhaseText = computed(() => {
+                    if (!currentBpMode.value) return '请选择 BP 模式';
+                    return currentPhase.value ? currentPhase.value.text : '分析已完成 (OVER)';
+                });
                 const currentTeamColor = computed(() => {
                     if (!currentPhase.value) return 'text-yellow-500';
                     return currentPhase.value.team === 'blue' ? 'text-blue-400 drop-shadow-[0_0_5px_rgba(59,130,246,0.8)]' : 'text-red-400 drop-shadow-[0_0_5px_rgba(239,68,68,0.8)]';
                 });
 
-                const activePickSlot = computed(() => {
-                    if (!currentPhase.value || currentPhase.value.action !== 'pick') return { team: null, index: -1 };
-                    const team = currentPhase.value.team;
+                const isPickSlotActive = (team, index) => {
+                    if (!currentPhase.value || currentPhase.value.action !== 'pick' || currentPhase.value.team !== team) return false;
                     const picks = team === 'blue' ? bluePicks.value : redPicks.value;
-                    return { team, index: picks.length };
-                });
+                    const start = picks.length;
+                    const end = start + currentSelectionLimit.value;
+                    return index >= start && index < end;
+                };
 
                 const filteredHeroes = computed(() => {
                     let result = heroes.value;
@@ -796,8 +973,8 @@
 
                 const pickedAndBannedIds = computed(() => {
                     const picked = [...bluePicks.value, ...redPicks.value].map(p => p.hero.hero_id);
-                    if (currentPhase.value?.action === 'ban') return picked;
                     const banned = [...blueBans.value, ...redBans.value].filter(h => h !== null).map(h => h.hero_id);
+                    if (currentPhase.value?.action === 'ban' && currentPhase.value?.blindBan) return picked;
                     return [...picked, ...banned];
                 });
 
@@ -813,14 +990,24 @@
                 const isHeroDisabled = (hero) => pickedAndBannedIds.value.includes(hero.hero_id);
 
                 const selectHero = (hero) => {
-                    if (isHeroDisabled(hero) || isGameOver.value) return;
+                    if (!currentPhase.value || isHeroDisabled(hero) || isGameOver.value) return;
                     const phase = currentPhase.value;
+                    const limit = currentSelectionLimit.value;
                     if (phase.action === 'ban') {
                         const idx = activeHeroes.value.findIndex(h => h.hero_id === hero.hero_id);
                         if (idx > -1) activeHeroes.value.splice(idx, 1);
-                        else if (activeHeroes.value.length < 5) activeHeroes.value.push(hero);
+                        else if (activeHeroes.value.length < limit) activeHeroes.value.push(hero);
                     } else if (phase.action === 'pick') {
-                        activeHeroes.value = [hero];
+                        const idx = activeHeroes.value.findIndex(h => h.hero_id === hero.hero_id);
+                        if (idx > -1) {
+                            activeHeroes.value.splice(idx, 1);
+                            return;
+                        }
+                        if (limit === 1) {
+                            activeHeroes.value = [hero];
+                        } else if (activeHeroes.value.length < limit) {
+                            activeHeroes.value.push(hero);
+                        }
                     }
                 };
                 
@@ -830,19 +1017,21 @@
                 };
 
                 const lockButtonText = computed(() => {
+                    if (!currentPhase.value) return '请选择 BP 模式';
                     if (isGameOver.value) return '对局推演中...';
-                    if (currentPhase.value?.action === 'ban') return `LOCK BAN (${activeHeroes.value.length}/5)`;
+                    if (currentPhase.value.action === 'ban') return `LOCK BAN (${activeHeroes.value.length}/${currentSelectionLimit.value})`;
+                    if (currentSelectionLimit.value > 1) return `LOCK PICK (${activeHeroes.value.length}/${currentSelectionLimit.value})`;
                     return 'LOCK PICK';
                 });
 
                 const isLockDisabled = computed(() => {
-                    if (isGameOver.value) return true;
-                    if (currentPhase.value?.action === 'pick' && activeHeroes.value.length === 0) return true;
-                    return false;
+                    if (isGameOver.value || !currentPhase.value) return true;
+                    if (currentPhase.value.action === 'ban' && currentPhase.value.allowPartial) return false;
+                    return activeHeroes.value.length !== currentSelectionLimit.value;
                 });
 
                 const fetchRecommendations = async () => {
-                    if (isGameOver.value || currentPhase.value.action !== 'pick') {
+                    if (isGameOver.value || !currentPhase.value || currentPhase.value.action !== 'pick') {
                         recommendations.value = [];
                         return;
                     }
@@ -850,8 +1039,11 @@
                     const isBlueTurn = currentPhase.value.team === 'blue';
                     const myPicks = isBlueTurn ? bluePicks.value : redPicks.value;
                     const enemyPicks = isBlueTurn ? redPicks.value : bluePicks.value;
+                    const stagedPickIds = currentSelectionLimit.value > 1
+                        ? activeHeroes.value.map(hero => hero.hero_id.toString())
+                        : [];
                     
-                    const myTeamIds = myPicks.map(p => p.hero.hero_id.toString());
+                    const myTeamIds = [...myPicks.map(p => p.hero.hero_id.toString()), ...stagedPickIds];
                     const enemyTeamIds = enemyPicks.map(p => p.hero.hero_id.toString());
                     const bannedIds = [...blueBans.value, ...redBans.value]
                                         .filter(h => h !== null)
@@ -885,17 +1077,18 @@
 
                     const phase = currentPhase.value;
                     if (phase.action === 'ban') {
-                        let finalBans = [...activeHeroes.value];
-                        while(finalBans.length < 5) finalBans.push(null);
-                        if (phase.team === 'blue') blueBans.value.push(...finalBans);
-                        if (phase.team === 'red') redBans.value.push(...finalBans);
+                        const teamBans = phase.team === 'blue' ? blueBans.value : redBans.value;
+                        const finalBans = [...activeHeroes.value];
+                        if (phase.allowPartial) {
+                            while (finalBans.length < currentSelectionLimit.value) finalBans.push(null);
+                        }
+                        teamBans.push(...finalBans);
                     } else if (phase.action === 'pick') {
-                        const heroToLock = activeHeroes.value[0];
                         const teamPicks = phase.team === 'blue' ? bluePicks.value : redPicks.value;
-                        const defaultLane = guessLane(heroToLock, teamPicks);
-                        
-                        if (phase.team === 'blue') bluePicks.value.push({ hero: heroToLock, lane: defaultLane });
-                        if (phase.team === 'red') redPicks.value.push({ hero: heroToLock, lane: defaultLane });
+                        activeHeroes.value.forEach(heroToLock => {
+                            const defaultLane = guessLane(heroToLock, teamPicks);
+                            teamPicks.push({ hero: heroToLock, lane: defaultLane });
+                        });
                     }
 
                     activeHeroes.value = [];
@@ -910,8 +1103,10 @@
                 return {
                     heroes, roles, lanes, currentRole, searchQuery, mySide, filteredHeroes,
                     blueBans, redBans, bluePicks, redPicks,
-                    activeHeroes, currentPhase, currentPhaseText, currentTeamColor, activePickSlot, isGameOver,
+                    bpModes, currentBpModeKey, currentBpModeName, showModeModal, modeModalClosing, hasDraftProgress,
+                    activeHeroes, currentPhase, currentSelectionLimit, currentPhaseText, currentTeamColor, isGameOver,
                     isHeroVisible, isHeroSelected, selectHero, selectHeroById, isHeroDisabled,
+                    isPickSlotActive, openModeModal, closeModeModal, chooseBpMode,
                     lockIn, lockButtonText, isLockDisabled, getSplashUrl,
                     recommendations, filteredRecommendations, matchupPairs, blueRadarRef, redRadarRef, blueOverallScore, redOverallScore,
                     showPrefModal, prefModalClosing, hasSavedPrefs, prefTab, prefRole, prefFilteredHeroes, goodAtIds, badAtIds, togglePrefHero, savePreferences, closePrefModal
